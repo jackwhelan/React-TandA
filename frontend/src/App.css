@@ -19,3 +19,15 @@
     opacity: 0.01;
     transition: opacity 1000ms ease-in;
 }
+
+.core-cont
+{
+    border-style: solid;
+    border-width: 2px;
+    padding: 3vh;
+    overflow: hidden;
+}
+
+.bg-lightgrey {
+    background-color: lightgrey;
+}
