@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from './components/AppNavbar.component';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +11,6 @@ import LoginView from './views/login.view';
 function App() {
   return (
     <div className="App">
-      <Navbar />
       <Router>
         <Switch>
           <Route path="/" exact component={HomeView} />

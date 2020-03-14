@@ -9,10 +9,11 @@ import {
     NavLink,
     Container
 } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
 class AppNavbar extends Component {
     state = {
-        isOpen: false
+        isOpen: false,
     }
 
     toggle = () => {
@@ -21,12 +22,20 @@ class AppNavbar extends Component {
         });
     }
 
+    getPath = () => {
+        var path = this.props.location.pathname.slice(1);
+        if (path === "") {
+            path = "Home";
+        }
+        return path;
+    }
+
     render() {
         return (
             <div>
                 <Navbar color="dark" dark expand="sm" className="mb-4">
                     <Container>
-                        <NavbarBrand href="/">Staffmin</NavbarBrand>
+                        <NavbarBrand href="/">Staffmin <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="mr-auto" navbar>
@@ -36,10 +45,10 @@ class AppNavbar extends Component {
                             </Nav>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <NavLink href="/login">Log In</NavLink>
+                                    <NavLink href="/Login">Log In</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href="/register">Register</NavLink>
+                                    <NavLink href="/Register">Register</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>
@@ -50,4 +59,4 @@ class AppNavbar extends Component {
     }
 }
 
-export default AppNavbar;
+export default withRouter(AppNavbar);
