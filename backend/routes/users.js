@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+process.env.SECRET_KEY = 'secret';
 
 // User Model
-const { User, RegistrationValidation } = require('../../models/User');
+const { User, RegistrationValidation } = require('../models/User');
 
-// @route   GET api/users
+// @route   GET /users
 // @desc    Get All Users
 // @access  Public
 router.get('/', (req, res) => {
@@ -15,7 +18,7 @@ router.get('/', (req, res) => {
     .then(users => res.json(users));
 });
 
-// @route   POST api/users
+// @route   POST /users
 // @desc    Create a User
 // @access  Public
 router.post('/', (req, res) => {
@@ -27,7 +30,7 @@ router.post('/', (req, res) => {
     .then(user => res.json(user));
 });
 
-// @route   DELETE api/users/:id
+// @route   DELETE /users/:id
 // @desc    Delete a User
 // @access  Public
 router.delete('/:id', (req, res) => {
@@ -36,7 +39,7 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(404).json({ success: false }));
 });
 
-// @route   POST api/users/register
+// @route   POST /users/register
 // @desc    Register a user
 // @access  Public
 router.post('/register', (req, res) => {
@@ -84,5 +87,42 @@ router.post('/register', (req, res) => {
     });
 });
 
+// @route   POST /users/login
+// @desc    Logs a user in
+// @access  Public
+router.post('/login', (req, res) => {
+    User.findOne({
+        username: req.body.username
+    })
+    .then(user => {
+        if(user) {
+            if(bcrypt.compareSync(req.body.password, user.password)) {
+                const payload = {
+                    id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    created: user.created
+                }
+
+                let token = jwt.sign(payload, process.env.SECRET_KEY, {
+                    expiresIn: 1440
+                });
+
+                res.json(token);
+            }
+            else
+            {
+                res.json({ error: 'Incorrect password' });
+            }
+        }
+        else
+        {
+            res.json({error: 'User does not exist' });
+        }
+    })
+    .catch(err => {
+        res.json({ error: err });
+    });
+});
 
 module.exports = router;

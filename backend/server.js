@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const users = require('./routes/api/users');
+
+const users = require('./routes/users');
+const dashboard = require('./routes/dashboard');
 
 const app = express();
 
@@ -21,7 +23,8 @@ mongoose
     });
 
 // User Routes
-app.use('/api/users', users);
+app.use('/users', users);
+app.use('/dashboard', dashboard);
 
 const port = process.env.PORT || 5000;
 

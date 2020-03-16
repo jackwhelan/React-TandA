@@ -7,6 +7,7 @@ import './App.css';
 import HomeView from './views/home.view';
 import RegisterView from './views/register.view';
 import LoginView from './views/login.view';
+import DashboardView from './views/dashboard.view';
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={HomeView} />
-          <Route path="/register" component={RegisterView} />
-          <Route path="/login" component={LoginView} />
+          <Route path="/Register" component={RegisterView} />
+          <Route path="/Login" component={LoginView} />
+          <Route path="/Dashboard" component={DashboardView} />
         </Switch>
       </Router>
     </div>

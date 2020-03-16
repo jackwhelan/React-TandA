@@ -33,14 +33,17 @@ class AppNavbar extends Component {
     render() {
         return (
             <div>
-                <Navbar color="dark" dark expand="sm" className="mb-4">
+                <Navbar color="dark" dark expand="sm">
                     <Container>
-                        <NavbarBrand href="/">Staffmin <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
+                        <NavbarBrand href="/">Staff Portal <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="mr-auto" navbar>
                                 <NavItem>
                                     <NavLink href="/">Home</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/Dashboard">Dashboard</NavLink>
                                 </NavItem>
                             </Nav>
                             <Nav className="ml-auto" navbar>
