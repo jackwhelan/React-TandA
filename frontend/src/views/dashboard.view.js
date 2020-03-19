@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../components/AppNavbar.component';
+import QR from '../components/QR.component';
 
 class DashboardView extends Component {
     render() {
@@ -7,7 +8,7 @@ class DashboardView extends Component {
             <div>
                 <Navbar />
                 <div className="container bg-light">
-                    DASHBOARD
+                    <QR />
                 </div>
             </div>
         )
