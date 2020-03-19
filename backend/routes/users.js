@@ -18,18 +18,6 @@ router.get('/', (req, res) => {
     .then(users => res.json(users));
 });
 
-// @route   POST /users
-// @desc    Create a User
-// @access  Public
-router.post('/', (req, res) => {
-    const newUser = new User({
-        name: req.body.name
-    })
-
-    newUser.save()
-    .then(user => res.json(user));
-});
-
 // @route   DELETE /users/:id
 // @desc    Delete a User
 // @access  Public
@@ -105,7 +93,7 @@ router.post('/login', (req, res) => {
                 }
 
                 let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                    expiresIn: 1440
+                    expiresIn: "1h"
                 });
 
                 res.json(token);

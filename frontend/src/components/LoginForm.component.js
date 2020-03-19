@@ -7,7 +7,8 @@ class Form extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            token: ''
         }
     }
 
@@ -25,8 +26,13 @@ class Form extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        axios.post("/users/login", this.state);
-        window.location.href = "/dashboard";
+        axios.post("/users/login", this.state)
+        .then(res => {
+            this.setState({
+                token: res.data
+            });
+        });
+        window.location = '/Dashboard';
     }
 
     render() {
