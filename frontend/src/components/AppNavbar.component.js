@@ -36,10 +36,10 @@ class AppNavbar extends Component {
             return (
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/"><i class="fas fa-home"></i> Home</NavLink>
+                        <NavLink href="/"><i className="fas fa-home"></i> Home</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/Dashboard"><i class="fas fa-columns"></i> Dashboard</NavLink>
+                        <NavLink href="/Dashboard"><i className="fas fa-columns"></i> Dashboard</NavLink>
                     </NavItem>
                 </Nav>
             )
@@ -48,7 +48,7 @@ class AppNavbar extends Component {
             return (
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/"><i class="fas fa-home"></i> Home</NavLink>
+                        <NavLink href="/"><i className="fas fa-home"></i> Home</NavLink>
                     </NavItem>
                 </Nav>
             )
@@ -60,10 +60,10 @@ class AppNavbar extends Component {
             return (
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink href="/Account"><i class="fas fa-user-circle"></i> My Account</NavLink>
+                        <NavLink href="/Account"><i className="fas fa-user-circle"></i> My Account</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#logout" onClick={this.handleLogout}><i class="fas fa-sign-out-alt"></i> Log Out</NavLink>
+                        <NavLink href="#logout" onClick={this.handleLogout}><i className="fas fa-sign-out-alt"></i> Log Out</NavLink>
                     </NavItem>
                 </Nav>
             )
@@ -72,10 +72,10 @@ class AppNavbar extends Component {
             return (
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink href="/Login"><i class="fas fa-sign-in-alt"></i> Log In</NavLink>
+                        <NavLink href="/Login"><i className="fas fa-sign-in-alt"></i> Log In</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/Register"><i class="fas fa-user-plus"></i> Register</NavLink>
+                        <NavLink href="/Register"><i className="fas fa-user-plus"></i> Register</NavLink>
                     </NavItem>
                 </Nav>
             )
