@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 
 class Form extends Component {
     constructor(props) {
@@ -8,7 +10,8 @@ class Form extends Component {
         this.state = {
             username: '',
             password: '',
-            token: ''
+            token: '',
+            redirectToReferrer: false
         }
     }
 
@@ -29,13 +32,29 @@ class Form extends Component {
         axios.post("/users/login", this.state)
         .then(res => {
             this.setState({
-                token: res.data
-            });
-        });
-        window.location = '/Dashboard';
+                token: res.data,
+            })
+        })
+        .then( () => {
+            localStorage.setItem('USER_ID', jwt.verify(this.state.token, 'secret').id);
+            localStorage.setItem('USER_FIRSTNAME', jwt.verify(this.state.token, 'secret').firstname);
+            localStorage.setItem('USER_LASTNAME', jwt.verify(this.state.token, 'secret').lastname);
+            localStorage.setItem('USER_USERNAME', jwt.verify(this.state.token, 'secret').username);
+            localStorage.setItem('USER_EMAIL', jwt.verify(this.state.token, 'secret').email);
+            localStorage.setItem('USER_CREATED', jwt.verify(this.state.token, 'secret').created);
+        })
+        .then( () => {
+            this.setState({
+                redirectToReferrer: true
+            })
+        })
     }
 
     render() {
+        const redirectToReferrer = this.state.redirectToReferrer;
+        if (redirectToReferrer === true) {
+            return <Redirect to="/Dashboard" />
+        }
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="mt-4">

@@ -39,6 +39,8 @@ router.post('/register', (req, res) => {
     });
 
     const newUser = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
@@ -87,6 +89,8 @@ router.post('/login', (req, res) => {
             if(bcrypt.compareSync(req.body.password, user.password)) {
                 const payload = {
                     id: user._id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
                     username: user.username,
                     email: user.email,
                     created: user.created

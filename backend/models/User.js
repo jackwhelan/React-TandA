@@ -3,6 +3,14 @@ const Schema = mongoose.Schema;
 const Joi = require('@hapi/joi');
 
 const UserSchema = new Schema({
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         required: true
@@ -18,6 +26,10 @@ const UserSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    clearance: {
+        type: String,
+        default: 'user'
     }
 });
 
@@ -25,15 +37,22 @@ const User = new mongoose.model('User', UserSchema);
 
 function registrationValidation(user) {
     const schema = Joi.object({
+        firstname: Joi.string()
+            .min(2)
+            .max(30)
+            .required(),
+        lastname: Joi.string()
+            .min(2)
+            .max(30)
+            .required(),
         username: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+            .min(3)
+            .max(30)
+            .required(),
         email: Joi.string()
-        .email()
-        .required(),
+            .email()
+            .required(),
         password: Joi.string()
-        .required()
     });
     
     const validation = schema.validate(user);
