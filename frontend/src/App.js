@@ -9,6 +9,7 @@ import RegisterView from './views/register.view';
 import LoginView from './views/login.view';
 import DashboardView from './views/dashboard.view';
 import GoodbyeView from './views/goodbye.view';
+import NotFoundView from './views/404.view';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/Login" component={LoginView} />
           <Route path="/Dashboard" component={DashboardView} />
           <Route path="/Goodbye" component={GoodbyeView} />
+          <Route component={NotFoundView} />
         </Switch>
       </Router>
     </div>
