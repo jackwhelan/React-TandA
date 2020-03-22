@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const users = require('./routes/users');
-const dashboard = require('./routes/dashboard');
 const clocking = require('./routes/clocking');
 
 const app = express();
@@ -25,7 +24,6 @@ mongoose
 
 // User Routes
 app.use('/users', users);
-app.use('/dashboard', dashboard);
 app.use('/clocking', clocking);
 
 const port = process.env.PORT || 5000;
