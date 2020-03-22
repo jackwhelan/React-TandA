@@ -9,11 +9,12 @@ import {
     NavLink,
     Container
 } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 class AppNavbar extends Component {
     state = {
         isOpen: false,
+        redirectToReferrer: false
     }
 
     toggle = () => {

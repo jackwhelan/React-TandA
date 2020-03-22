@@ -8,6 +8,7 @@ import HomeView from './views/home.view';
 import RegisterView from './views/register.view';
 import LoginView from './views/login.view';
 import DashboardView from './views/dashboard.view';
+import GoodbyeView from './views/goodbye.view';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Register" component={RegisterView} />
           <Route path="/Login" component={LoginView} />
           <Route path="/Dashboard" component={DashboardView} />
+          <Route path="/Goodbye" component={GoodbyeView} />
         </Switch>
       </Router>
     </div>
