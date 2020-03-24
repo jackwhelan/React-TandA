@@ -17,6 +17,7 @@ mongoose
     .connect(db, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
+        useCreateIndex: true
     })
     .then(() => console.log('DB Connected!'))
     .catch(err => {
