@@ -3,7 +3,7 @@ const router = express.Router();
 const checkAuth = require('./middleware/check-auth');
 
 // Clocking model and User Model
-const { Clocking, ClockingValidation } = require('../models/Clocking');
+const Dashboard = require('../models/Dashboard');
 const { User } = require('../models/User');
 
 // @route   GET /user
@@ -15,16 +15,17 @@ router.get('/:id', (req, res) => {
     })
     .then(user => {
         res.json(user.clearance);
+    })
+    .catch(err => {
+        console.log(err);
     });
 });
 
-router.post('/:username', (req, res) => {
-    User.findOne({
-        username: 'jackw97'
+router.get('/clearance/:clearance', (req, res) => {
+    Dashboard.findOne({
+        clearance: req.params.clearance
     })
-    .then(user => {
-        res.json(req.params);
-    });
+    .then(dashboard => res.json(dashboard));
 });
 
 module.exports = router;

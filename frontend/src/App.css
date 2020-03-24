@@ -50,3 +50,8 @@
     }
 }
 
+.db-item {
+    background-color: yellow;
+    width: 20%;
+    text-align: center;
+}
