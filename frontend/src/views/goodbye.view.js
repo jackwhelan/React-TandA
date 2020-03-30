@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Navbar from '../components/AppNavbar.component';
+import { Redirect } from 'react-router-dom';
 
 class DashboardView extends Component {
     checkLogged = () => {
         if (localStorage.getItem('USER_ID')) {
-            return (<h4>Click the logout button on the top right to sign out.</h4>)
+            return <Redirect to="/Dashboard" />
         }
         else
         {

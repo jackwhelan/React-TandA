@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import Alert from './Alert.component';
 
 class Form extends Component {
     constructor(props) {
@@ -29,6 +30,11 @@ class Form extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+
+        this.setState({
+            error: undefined,
+        })
+
         axios.post("/users/login", this.state)
         .then(res => {
             this.setState({
@@ -36,23 +42,59 @@ class Form extends Component {
             })
         })
         .then( () => {
-            localStorage.setItem('USER_ID', jwt.verify(this.state.token, 'secret').id);
-            localStorage.setItem('USER_FIRSTNAME', jwt.verify(this.state.token, 'secret').firstname);
-            localStorage.setItem('USER_LASTNAME', jwt.verify(this.state.token, 'secret').lastname);
-            localStorage.setItem('USER_USERNAME', jwt.verify(this.state.token, 'secret').username);
-            localStorage.setItem('USER_EMAIL', jwt.verify(this.state.token, 'secret').email);
-            localStorage.setItem('USER_CREATED', jwt.verify(this.state.token, 'secret').created);
+            if(this.state.token.error)
+            {
+                this.setState({
+                    error: this.state.token.error,
+                    token: undefined
+                })
+            }
+            else
+            {
+                localStorage.setItem('USER_ID', jwt.verify(this.state.token, 'secret').id);
+                localStorage.setItem('USER_FIRSTNAME', jwt.verify(this.state.token, 'secret').firstname);
+                localStorage.setItem('USER_LASTNAME', jwt.verify(this.state.token, 'secret').lastname);
+                localStorage.setItem('USER_USERNAME', jwt.verify(this.state.token, 'secret').username);
+                localStorage.setItem('USER_EMAIL', jwt.verify(this.state.token, 'secret').email);
+                localStorage.setItem('USER_CREATED', jwt.verify(this.state.token, 'secret').created);
+                localStorage.setItem('USER_TOKEN', this.state.token);
+            }
         })
-        .then( () => {
+        .then(() => {
+            if (this.state.error) {
+                this.setState({
+                    redirectToReferrer: false
+                })
+            }
+            else
+            {
+                this.setState({
+                    redirectToReferrer: true
+                })
+            }
+        })
+        .catch(err => {
             this.setState({
-                redirectToReferrer: true
+                error: "System error, please contact system administrator.",
+                message: err
             })
         })
     }
 
+    componentDidMount() {
+        if (localStorage.getItem('USER_ID')) {
+            this.setState({
+                redirectToReferrer: true
+            })
+        }
+    }
+
     render() {
-        const redirectToReferrer = this.state.redirectToReferrer;
-        if (redirectToReferrer === true) {
+        let alertIfError;
+        if (this.state.error) {
+            alertIfError = <Alert error={this.state.error} />
+        }
+        if (this.state.redirectToReferrer === true) {
             return <Redirect to="/Dashboard" />
         }
         return (
@@ -77,6 +119,7 @@ class Form extends Component {
                         onChange={this.handlePasswordChange}
                         required
                     />
+                    {alertIfError}
                 </div>
 
                 <button type="submit" className="btn btn-black">Login</button>

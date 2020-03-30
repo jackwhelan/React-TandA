@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class DashboardItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            dashboard: undefined
+            dashboard: undefined,
+            redirect: false
         }
+    }
 
-        axios.get("/dashboard/" + localStorage.getItem('USER_ID'))
-            .then(userClearance => {
-                axios.get("/dashboard/clearance/" + userClearance.data)
-                    .then(database_dashboard => {
-                        this.setState({
-                            dashboard: database_dashboard.data.dashboardItems
-                        });
-                    });
-            })
+    componentDidMount() {
+        if (localStorage.getItem('USER_ID')) {
+            axios.get("/dashboard/" + localStorage.getItem('USER_ID'))
+                .then(userClearance => {
+                    axios.get("/dashboard/clearance/" + userClearance.data)
+                        .then(database_dashboard => {
+                            this.setState({
+                                dashboard: database_dashboard.data.dashboardItems
+                            });
+                        })
+                        .catch(err => console.log(err));
+                })
+        }
+        else {
+            this.setState({
+                redirect: true
+            });
+        }
     }
 
     render() {
-        if(!this.state.dashboard) {
+        if(this.state.redirect) {
+            return <Redirect to="/" />
+        }
+        else if (!this.state.dashboard) {
             return (
                 <div>
                     Loading...
