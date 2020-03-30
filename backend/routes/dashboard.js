@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const checkAuth = require('./middleware/check-auth');
 
 // Clocking model and User Model
 const Dashboard = require('../models/Dashboard');

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class Form extends Component {
     constructor(props) {
@@ -9,8 +10,8 @@ class Form extends Component {
             firstname: '',
             lastname: '',
             username: '',
-            password: '',
-            email: ''
+            email: '',
+            password: ''
         }
     }
 
@@ -45,10 +46,28 @@ class Form extends Component {
     }
 
     handleSubmit = (event) => {
-        axios.post("/users/register", this.state);
+        event.preventDefault();
+        axios.post("/users/register", this.state)
+            .then(() => {
+                this.setState({
+                    redirect: true
+                });
+            })
+            .catch(err => console.log(err));
+    }
+
+    componentDidMount() {
+        if (localStorage.getItem('USER_ID')) {
+            this.setState({
+                redirect: true
+            });
+        }
     }
 
 render() {
+    if (this.state.redirect === true) {
+        return <Redirect to="/Dashboard" />
+    }
     return (
         <form onSubmit={this.handleSubmit}>
             <div className="mt-4">
@@ -58,6 +77,8 @@ render() {
                     className="form-control"
                     value={this.state.firstname}
                     onChange={this.handleFirstnameChange}
+                    minLength="2"
+                    maxLength="30"
                     required
                 />
             </div>
@@ -69,6 +90,8 @@ render() {
                     className="form-control"
                     value={this.state.lastname}
                     onChange={this.handleLastnameChange}
+                    minLength="2"
+                    maxLength="30"
                     required
                 />
             </div>
@@ -76,33 +99,37 @@ render() {
             <div className="mt-4">
                 <label>Username</label>
                 <input
-                type="text"
-                className="form-control"
-                value={this.state.username}
-                onChange={this.handleUsernameChange}
-                required
+                    type="text"
+                    className="form-control"
+                    value={this.state.username}
+                    onChange={this.handleUsernameChange}
+                    minLength="3"
+                    maxLength="30"
+                    required
                 />
             </div>
 
             <div>
                 <label>Password</label>
                 <input
-                type="password"
-                className="form-control"
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-                required
+                    type="password"
+                    className="form-control"
+                    value={this.state.password}
+                    onChange={this.handlePasswordChange}
+                    minLength="6"
+                    maxLength="100"
+                    required
                 />
             </div>
 
             <div className="mb-5">
                 <label>Email</label>
                 <input
-                type="email"
-                className="form-control"
-                value={this.state.email}
-                onChange={this.handleEmailChange}
-                required
+                    type="email"
+                    className="form-control"
+                    value={this.state.email}
+                    onChange={this.handleEmailChange}
+                    required
                 />
             </div>
 
