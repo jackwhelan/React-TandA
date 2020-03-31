@@ -15,14 +15,4 @@ const ClockingSchema = new Schema({
 
 const Clocking = new mongoose.model('Clocking', ClockingSchema);
 
-function clockingValidation(clocking) {
-    const schema = Joi.object({
-    });
-
-    const validation = schema.validate(clocking);
-
-    return validation;
-}
-
-exports.Clocking = Clocking;
-exports.ClockingValidation = clockingValidation;
+module.exports = Clocking
