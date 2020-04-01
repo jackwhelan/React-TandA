@@ -47,20 +47,18 @@ class DashboardItem extends Component {
         {
             var dbitems = this.state.dashboard;
             return (
-                <div>
+                <div className="centerMobile">
                     {
                         dbitems.map((item, i) => {
-                            var iconClass = item.icon + " fa-7x";
-                            const divStyle = {
-                                width: '18rem'
-                            };
+                            var iconClass = item.icon + " fa-5x";
+
                             return (
-                                <div key={i} className="card" style={divStyle}>
+                                <div key={i} className="card cardStyle">
                                     <div className="card-body">
-                                        <h5 className="card-title text-center"><i className={iconClass}></i></h5>
-                                        <h4 className="card-subtitle mb-2 text-muted">{item.text}</h4>
+                                        <h5 className="card-title text-center scaleIcon"><i className={iconClass}></i></h5>
+                                        <h4 className="card-subtitle mb-2 text-muted scaleH4">{item.text}</h4>
                                         <p className="card-text">{item.desc}</p>
-                                        <a href={item.href}>{item.text}</a>
+                                        <a className="btn btn-primary btn-sm" href={item.href}>{item.text}</a>
                                     </div>
                                 </div>
                             )
