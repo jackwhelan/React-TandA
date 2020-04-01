@@ -5,6 +5,7 @@
     border-width: 2px;
     padding: 3vh;
     overflow: hidden;
+    background-color: #D9DCD6;
 }
 
 .bg-lightgrey {
@@ -23,14 +24,14 @@
     float: right;
     height: 100vh;
     width: 60%;
-    background-color: #FBFFF1;
+    background-color: #D9DCD6;
 }
 
 .divLeft {
     float: left;
     height: 100vh;
     width: 40%;
-    background-color:#8BC7EC;
+    background-color: #3A7CA5;
 }
 
 .btn-black{
@@ -54,4 +55,46 @@
     background-color: yellow;
     width: 20%;
     text-align: center;
+}
+
+.outline {
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.scaleIcon {
+    font-size: 2vh;
+}
+
+.scaleH1 {
+    font-size: 3vw;
+}
+
+@media screen and (max-width: 600px) {
+    .scaleH1 {
+        font-size: 8vw;
+    }
+}
+
+.scaleH4 {
+    font-size: 3vh;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        text-align: center;
+    }
+}
+
+.cardStyle {
+    width: 23.75vh;
+    display: inline-block;
+    margin: 1vw;
+    margin-bottom: 4vh;
+}
+
+@media screen and (max-width: 600px) {
+   .cardStyle {
+        width: 35vh;
+        margin-bottom: 4vh;
+    }
 }
