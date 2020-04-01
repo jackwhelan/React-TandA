@@ -41,6 +41,9 @@ class AppNavbar extends Component {
                     <NavItem>
                         <NavLink href="/Dashboard"><i className="fas fa-columns"></i> Dashboard</NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink href="/Clocking"><i className="fas fa-clock"></i> Clocking</NavLink>
+                    </NavItem>
                 </Nav>
             )
         }
@@ -97,7 +100,7 @@ class AppNavbar extends Component {
 
         return (
             <div>
-                <Navbar color="dark" dark expand="sm">
+                <Navbar style={{backgroundColor: "#16425B"}} dark expand="sm">
                     <Container>
                         <NavbarBrand href="/">Staff Portal <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
