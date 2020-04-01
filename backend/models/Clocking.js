@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Joi = require('@hapi/joi');
 
 const ClockingSchema = new Schema({
-    in: {
-        type: Boolean,
-        required: true
+    status: {
+        type: String,
+        default: "out"
     },
     datetime: {
         type: Date,
@@ -15,4 +14,4 @@ const ClockingSchema = new Schema({
 
 const Clocking = new mongoose.model('Clocking', ClockingSchema);
 
-module.exports = Clocking
+module.exports = Clocking;
