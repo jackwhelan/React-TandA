@@ -30,6 +30,14 @@ const UserSchema = new Schema({
     clearance: {
         type: String,
         default: 'user'
+    },
+    clocking: {
+        type: Array,
+        default: [{
+            _id: mongoose.Types.ObjectId(),
+            status: "out ",
+            timestamp: "0000-00-00T00:00:00.000Z"
+        }]
     }
 });
 
