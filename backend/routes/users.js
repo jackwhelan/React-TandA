@@ -46,22 +46,18 @@ router.post('/register', (req, res) => {
         password: req.body.password
     });
 
-    User.findOne({email:req.body.email}).then(emailMatch=>{
-        if(emailMatch) {
-            return res.status(400).json({
-                status: 'error',
-                type: 'email',
-                msg: 'Email is already registered'
+    User.findOne({ username: req.body.username }).then(usernameMatch => {
+        if (usernameMatch) {
+            return res.json({
+                error: 'Username is already registered'
             });
         }
     });
 
-    User.findOne({ username: req.body.username }).then(usernameMatch => {
-        if (usernameMatch) {
-            return res.status(400).json({
-                status: 'error',
-                type: 'username',
-                msg: 'Username is already taken'
+    User.findOne({ email: req.body.email }).then(emailMatch => {
+        if (emailMatch) {
+            return res.json({
+                error: 'Email is already registered'
             });
         }
     });
