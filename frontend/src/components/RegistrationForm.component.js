@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import Alert from './Alert.component';
 
 class Form extends Component {
     constructor(props) {
@@ -47,11 +48,31 @@ class Form extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+
+        this.setState({
+            error: undefined,
+        })
+
         axios.post("/users/register", this.state)
-            .then(() => {
+            .then(res => {
                 this.setState({
-                    redirect: true
-                });
+                    response: res.data
+                })
+            })
+            .then(() => {
+                if (this.state.response.error)
+                {
+                    this.setState({
+                        error: this.state.response.error,
+                        response: undefined
+                    })
+                }
+                else
+                {
+                    this.setState({
+                        redirect: true
+                    });
+                }
             })
             .catch(err => console.log(err));
     }
@@ -65,6 +86,10 @@ class Form extends Component {
     }
 
 render() {
+    let alertIfError;
+    if (this.state.error) {
+        alertIfError = <Alert error={this.state.error} />
+    }
     if (this.state.redirect === true) {
         return <Redirect to="/Dashboard" />
     }
@@ -131,6 +156,7 @@ render() {
                     onChange={this.handleEmailChange}
                     required
                 />
+                {alertIfError}
             </div>
 
             <button type="submit" className="btn btn-black">Submit</button>
