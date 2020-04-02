@@ -5,7 +5,7 @@ class QR extends Component {
     render() {
         return (
             <div>
-                <QRCode value={"JWT"} />
+                <QRCode value={this.props.id} />
             </div>
         )
     }

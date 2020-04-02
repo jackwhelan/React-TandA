@@ -11,6 +11,7 @@ import DashboardView from './views/dashboard.view';
 import GoodbyeView from './views/goodbye.view';
 import NotFoundView from './views/404.view';
 import ClockingView from './views/clocking.view';
+import AccountView from './views/account.view';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/Dashboard" component={DashboardView} />
           <Route path="/Goodbye" component={GoodbyeView} />
           <Route path="/Clocking" component={ClockingView} />
+          <Route path="/Account" component={AccountView} />
           <Route component={NotFoundView} />
         </Switch>
       </Router>
