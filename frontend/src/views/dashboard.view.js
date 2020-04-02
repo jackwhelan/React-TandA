@@ -7,7 +7,7 @@ class DashboardView extends Component {
         return (
             <div>
                 <Navbar />
-                <div className="container bg-light p-5">
+                <div className="container bg-tertiary p-5">
                     <h4>Hello {localStorage.getItem('USER_FIRSTNAME')}</h4><hr className="bg-black mb-5"/>
                     <Dashboard />
                 </div>

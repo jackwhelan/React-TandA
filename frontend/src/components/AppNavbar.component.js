@@ -100,7 +100,7 @@ class AppNavbar extends Component {
 
         return (
             <div>
-                <Navbar style={{backgroundColor: "#16425B"}} dark expand="sm">
+                <Navbar className="bg-navBlue" dark expand="sm">
                     <Container>
                         <NavbarBrand href="/">Staff Portal <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />

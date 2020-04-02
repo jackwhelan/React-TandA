@@ -58,7 +58,7 @@ class DashboardItem extends Component {
                                         <h5 className="card-title text-center scaleIcon"><i className={iconClass}></i></h5>
                                         <h4 className="card-subtitle mb-2 text-muted scaleH4">{item.text}</h4>
                                         <p className="card-text">{item.desc}</p>
-                                        <a className="btn btn-primary btn-sm" href={item.href}>{item.text}</a>
+                                        <a className="btn btn-primary bg-navBlue btn-sm" href={item.href}>{item.text}</a>
                                     </div>
                                 </div>
                             )
