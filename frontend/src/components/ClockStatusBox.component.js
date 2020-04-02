@@ -92,17 +92,19 @@ class ClockStatusBox extends Component {
 
     render() {
         return (
-            <div className="card bg-dark">
-                <div className="card-body">
-                    <h1
-                        style={{ color: this.state.textColour, letterSpacing: '1px' }}
-                        className="card-title text-center mb-2 outline scaleH1">
-                            {this.state.clockStatus}
-                    </h1>
-                </div>
-                <div className="text-center mb-4">
-                    <a id="clockInButton" className="btn btn-primary btn-sm mr-2" onClick={this.postClockIn} href="#ClockIn">Clock In</a>
-                    <a id="clockOutButton" className="btn btn-primary btn-sm" onClick={this.postClockOut} href="#ClockOut">Clock Out</a>
+            <div className="d50m100">
+                <div className="card bg-navBlue">
+                    <div className="card-body">
+                        <h1
+                            style={{ color: this.state.textColour, letterSpacing: '1px' }}
+                            className="card-title text-center mb-2 outline scaleH1">
+                                {this.state.clockStatus}
+                        </h1>
+                    </div>
+                    <div className="text-center mb-4">
+                        <a id="clockInButton" className="btn btn-primary btn-sm mr-2" onClick={this.postClockIn} href="#ClockIn">Clock In</a>
+                        <a id="clockOutButton" className="btn btn-primary btn-sm" onClick={this.postClockOut} href="#ClockOut">Clock Out</a>
+                    </div>
                 </div>
             </div>
         )

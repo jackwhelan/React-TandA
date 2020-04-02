@@ -4,11 +4,22 @@ import ClockStatusBox from '../components/ClockStatusBox.component';
 import ClockLogBox from '../components/ClockLogBox.component';
 
 class ClockingView extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            requiresUpdate: false
+        }
+    }
     render() {
+        if(this.state.requiresUpdate)
+        {
+            ClockLogBox.updateLog();
+        }
         return (
             <div>
                 <Navbar />
-                <div className="container bg-light p-5">
+                <div className="container bg-tertiary p-5">
                     <h4>Hello {localStorage.getItem('USER_FIRSTNAME')}</h4><hr className="bg-black mb-5" />
                     <ClockStatusBox/>
                     <hr className="bg-black mt-5 mb-5"></hr>
