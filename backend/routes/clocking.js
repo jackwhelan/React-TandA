@@ -58,6 +58,11 @@ router.post('/in', (req, res) => {
     });
 });
 
+router.get('/mobile', (res, res) => {
+    var response = "WORKS";
+    res.json(response);
+});
+
 // @route   GET /clocking/out
 // @desc    Clock out
 router.post('/out', (req, res) => {
