@@ -58,9 +58,55 @@ router.post('/in', (req, res) => {
     });
 });
 
-router.get('/mobile', (res, res) => {
-    var response = "WORKS";
-    res.json(response);
+router.get('/mobile/:id', (req, res) => {
+    var newStatus;
+    User.findById(req.params.id)
+        .then(user => {
+            lastClock = user.clocking.sort((a, b) => {
+                return b.datetime - a.datetime;
+            });
+        })
+        .then(() => {
+            if(lastClock[0].status.includes("out"))
+            {
+                newClocking = new Clocking({
+                    status: "in"
+                });
+
+                User.findOneAndUpdate(
+                    { _id: req.params.id },
+                    { $push: { clocking: newClocking } },
+                    { useFindAndModify: false }
+                )
+                    .then(() => {
+                        newStatus = "in";
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+            else
+            {
+                newClocking = new Clocking({
+                    status: "out"
+                });
+
+                User.findOneAndUpdate(
+                    { _id: req.params.id },
+                    { $push: { clocking: newClocking } },
+                    { useFindAndModify: false }
+                )
+                    .then(() => {
+                        newStatus = "out";
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        })
+        .then(() => {
+            res.send(newStatus)
+        })
 });
 
 // @route   GET /clocking/out
