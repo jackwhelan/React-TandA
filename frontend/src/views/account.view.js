@@ -11,7 +11,7 @@ class AccountView extends Component {
                 <Navbar />
                 <div className="container bg-light p-5">
                     <h4>Account</h4><hr className="bg-black" />
-                    <Greeting context="Welcome to the account portal." />
+                    <Greeting context="Welcome to the Account Portal." />
                     <QR id={localStorage.getItem("USER_ID")}/>
                 </div>
             </div>
