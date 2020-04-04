@@ -7,6 +7,7 @@ class HomeView extends Component {
             <div>
                 <Navbar />
                 <div className="container bg-tertiary p-5">
+                    <h2>Frontend Change to test CI Pipeline</h2>
                     <div className="core-cont bg-lightgrey">
                         <h5>What is Lorem Ipsum?</h5>
                         <hr className="bg-black"/>
