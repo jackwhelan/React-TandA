@@ -45,7 +45,7 @@ class AppNavbar extends Component {
                         <NavLink href="/Clocking"><i className="fas fa-clock"></i> Clocking</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/Schedule"><i class="fas fa-calendar-alt"></i> Schedule</NavLink>
+                        <NavLink href="/Schedule"><i className="fas fa-calendar-alt"></i> Schedule</NavLink>
                     </NavItem>
                 </Nav>
             )

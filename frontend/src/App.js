@@ -12,7 +12,7 @@ import GoodbyeView from './views/goodbye.view';
 import NotFoundView from './views/404.view';
 import ClockingView from './views/clocking.view';
 import AccountView from './views/account.view';
-import Schedule from './components/Schedule.component';
+import ScheduleView from './views/schedule.view';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
           <Route path="/Goodbye" component={GoodbyeView} />
           <Route path="/Clocking" component={ClockingView} />
           <Route path="/Account" component={AccountView} />
-          <Route path="/Schedule" component={Schedule} />
+          <Route path="/Schedule" component={ScheduleView} />
           <Route component={NotFoundView} />
         </Switch>
       </Router>
