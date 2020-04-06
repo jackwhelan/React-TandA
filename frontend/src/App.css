@@ -120,3 +120,15 @@ body {
         width: 100%;
     }
 }
+
+.day {
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+.week {
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+}
