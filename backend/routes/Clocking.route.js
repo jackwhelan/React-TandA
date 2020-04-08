@@ -6,14 +6,6 @@ const mongoose = require('mongoose');
 const Clocking = require('../models/Clocking.model');
 const {User} = require('../models/User.model');
 
-// @route   GET /clocking
-// @desc    Get All Clockings
-router.get('/', (req, res) => {
-    Clocking.find()
-        .sort({ date: -1 })
-        .then(clocking => res.json(clocking));
-});
-
 // @route   GET /clocking/status/:id
 // @desc    Get whether a user is clocked in or out by ID
 router.get('/status/:id', (req, res) => {
@@ -24,9 +16,9 @@ router.get('/status/:id', (req, res) => {
         })[0];
         res.json(lastClock.status)
     })
-    .catch(err => {
-        console.log(err);
-    })
+        .catch(err => {
+            res.json({ error: err });
+        });
 })
 
 // @route   GET /clocking/list/:id
@@ -39,25 +31,62 @@ router.get('/list/:id', (req, res) => {
             });
             res.json(lastClock)
         })
+        .catch(err => {
+            res.json({ error: err });
+        });
 })
 
 // @route   GET /clocking/in
 // @desc    Clock in
-router.post('/in', (req, res) => {
+router.post('/in/:id', (req, res) => {
     newClocking = new Clocking({
         status: "in"
     });
 
-    User.findOneAndUpdate(
-        { username: req.body.username },
-        { $push: { clocking: newClocking } },
-        { useFindAndModify: false }
-    )
-    .then(user => {
-        res.json(user);
-    });
+    User.findById(req.params.id)
+        .then(user => {
+            lastClock = user.clocking.sort((a, b) => {
+                return b.datetime - a.datetime;
+            })[0];
+        })
+        .then(() => {
+            if(lastClock.status.includes('out'))
+            {
+                User.findOneAndUpdate(
+                    { username: req.body.username },
+                    { $push: { clocking: newClocking } },
+                    { useFindAndModify: false }
+                )
+                    .then(user => {
+                        if (user) {
+                            res.json({
+                                success: "Clock in successful"
+                            });
+                        }
+                        else {
+                            res.json({
+                                error: "Attempting to clock in as non-existant user"
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        res.json({ error: err });
+                    });
+            }
+            else
+            {
+                res.json({
+                    error: "Already clocked in"
+                })
+            }
+        })
+        .catch(err => {
+            res.json({ error: err });
+        });
 });
 
+// @route   GET /clocking/mobile/:id
+// @desc    Clock in/out for mobile
 router.get('/mobile/:id', (req, res) => {
     var newStatus;
     User.findById(req.params.id)
@@ -82,7 +111,7 @@ router.get('/mobile/:id', (req, res) => {
                         newStatus = "in";
                     })
                     .catch(err => {
-                        console.log(err);
+                        res.json({ error: err });
                     });
             }
             else
@@ -100,29 +129,62 @@ router.get('/mobile/:id', (req, res) => {
                         newStatus = "out";
                     })
                     .catch(err => {
-                        console.log(err);
+                        res.json({ error: err });
                     });
             }
         })
         .then(() => {
             res.send(newStatus)
         })
+        .catch(err => {
+            res.json({ error: err });
+        });
 });
 
-// @route   GET /clocking/out
+// @route   GET /clocking/out/:id
 // @desc    Clock out
-router.post('/out', (req, res) => {
+router.post('/out/:id', (req, res) => {
     newClocking = new Clocking({
         status: "out"
     });
 
-    User.findOneAndUpdate(
-        { username: req.body.username },
-        { $push: { clocking: newClocking } },
-        { useFindAndModify: false }
-    )
+    User.findById(req.params.id)
         .then(user => {
-            res.json(user);
+            lastClock = user.clocking.sort((a, b) => {
+                return b.datetime - a.datetime;
+            })[0];
+        })
+        .then(() => {
+            if (lastClock.status.includes('in')) {
+                User.findOneAndUpdate(
+                    { username: req.body.username },
+                    { $push: { clocking: newClocking } },
+                    { useFindAndModify: false }
+                )
+                    .then(user => {
+                        if (user) {
+                            res.json({
+                                success: "Clock out successful"
+                            });
+                        }
+                        else {
+                            res.json({
+                                error: "Attempting to clock out as non-existant user"
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        res.json({ error: err });
+                    });
+            }
+            else {
+                res.json({
+                    error: "Already clocked out"
+                })
+            }
+        })
+        .catch(err => {
+            res.json({ error: err });
         });
 });
 

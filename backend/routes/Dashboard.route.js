@@ -13,7 +13,18 @@ router.get('/:id', (req, res) => {
         _id: req.params.id
     })
     .then(user => {
-        res.json(user.clearance);
+        if(user.clearance) {
+            Dashboard.findOne({
+                clearance: user.clearance
+            })
+                .then(dashboard => res.json(dashboard));
+        }
+        else
+        {
+            res.json({
+                error: "Invalid UID"
+            })
+        }
     })
     .catch(err => {
         console.log(err);
