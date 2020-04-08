@@ -3,8 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 // Clocking model
-const Clocking = require('../models/Clocking');
-const {User} = require('../models/User');
+const Clocking = require('../models/Clocking.model');
+const {User} = require('../models/User.model');
 
 // @route   GET /clocking
 // @desc    Get All Clockings

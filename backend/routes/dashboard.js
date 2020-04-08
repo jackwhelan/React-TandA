@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // Clocking model and User Model
-const Dashboard = require('../models/Dashboard');
-const { User } = require('../models/User');
+const Dashboard = require('../models/Dashboard.model');
+const { User } = require('../models/User.model');
 
 // @route   GET /user
 // @desc    Get All Clockings

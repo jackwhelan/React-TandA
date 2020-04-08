@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 process.env.SECRET_KEY = 'secret';
 
 // User Model
-const { User, RegistrationValidation } = require('../models/User');
+const { User, RegistrationValidation } = require('../models/User.model');
 
 // @route   GET /users
 // @desc    Get All Users
