@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const users = require('./routes/users');
-const clocking = require('./routes/clocking');
-const dashboard = require('./routes/dashboard');
+const users = require('./routes/Users.route');
+const clocking = require('./routes/Clocking.route');
+const dashboard = require('./routes/Dashboard.route');
 
 const app = express();
 
