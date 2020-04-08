@@ -96,8 +96,8 @@ class Week extends Component {
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Monday | { DayJS().startOf('isoWeek').format('D') }th</h6>
                             {
                                 clockings.monday.map((item, i) => {
-                                    var datetime = new Date(item.datetime);
-                                    var dtime = DayJS(datetime).format('HH:MM');
+                                    var datetime = item.datetime;
+                                    var dtime = DayJS(datetime).format('HH:mm');
                                     var isoweek = DayJS().isoWeek();
                                     if (DayJS(datetime).isAfter(isoweek))
                                     {
@@ -117,8 +117,8 @@ class Week extends Component {
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Tuesday | {DayJS().startOf('isoWeek').add(1, 'day').format('D')}th</h6>
                             {
                                 clockings.tuesday.map((item, i) => {
-                                    var datetime = new Date(item.datetime);
-                                    var dtime = DayJS(datetime).format('HH:MM');
+                                    var datetime = item.datetime;
+                                    var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
                                         return (
                                             <Day key={i} status={item.status} time={dtime} />
@@ -136,8 +136,8 @@ class Week extends Component {
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Wednesday | {DayJS().startOf('isoWeek').add(2, 'day').format('D')}th</h6>
                             {
                                 clockings.wednesday.map((item, i) => {
-                                    var datetime = new Date(item.datetime);
-                                    var dtime = DayJS(datetime).format('HH:MM');
+                                    var datetime = item.datetime;
+                                    var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
                                         return (
                                             <Day key={i} status={item.status} time={dtime} />
@@ -155,8 +155,8 @@ class Week extends Component {
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Thursday | {DayJS().startOf('isoWeek').add(3, 'day').format('D')}th</h6>
                             {
                                 clockings.thursday.map((item, i) => {
-                                    var datetime = new Date(item.datetime);
-                                    var dtime = DayJS(datetime).format('HH:MM');
+                                    var datetime = item.datetime;
+                                    var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
                                         return (
                                             <Day key={i} status={item.status} time={dtime} />
@@ -174,8 +174,8 @@ class Week extends Component {
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Friday | {DayJS().startOf('isoWeek').add(4, 'day').format('D')}th</h6>
                             {
                                 clockings.friday.map((item, i) => {
-                                    var datetime = new Date(item.datetime);
-                                    var dtime = DayJS(datetime).format('HH:MM');
+                                    var datetime = item.datetime;
+                                    var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
                                         return (
                                             <Day key={i} status={item.status} time={dtime} />

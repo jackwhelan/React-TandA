@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import Week from './scheduling/week.component';
 
 class ClockLogBox extends Component {
     constructor(props) {
@@ -52,27 +53,9 @@ class ClockLogBox extends Component {
             )
         }
         else {
-            var clockings = this.state.clockings;
             return (
-                <div>
-                    <h4 className="mb-5">Previous Clockings</h4>
-                    <div className="centerMobile">
-                        {
-                            clockings.map((item, i) => {
-                                var datetime = new Date(item.datetime);
-                                var hours = this.parseTime(datetime.getHours());
-                                var minutes = this.parseTime(datetime.getMinutes());
-                                var seconds = this.parseTime(datetime.getSeconds());
-                                return (
-                                    <div key={i} className="card mb-2 d50m100">
-                                        <div className="card-body text-center">
-                                            <h4>Clocked {item.status} at {hours}:{minutes}:{seconds}</h4>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                <div className="container">
+                    <Week />
                 </div>
             )
         }

@@ -4,18 +4,7 @@ import ClockStatusBox from '../components/ClockStatusBox.component';
 import ClockLogBox from '../components/ClockLogBox.component';
 
 class ClockingView extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            requiresUpdate: false
-        }
-    }
     render() {
-        if(this.state.requiresUpdate)
-        {
-            ClockLogBox.updateLog();
-        }
         return (
             <div>
                 <Navbar />
