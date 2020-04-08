@@ -15,15 +15,14 @@ class DashboardItem extends Component {
     componentDidMount() {
         if (localStorage.getItem('USER_ID')) {
             axios.get("/dashboard/" + localStorage.getItem('USER_ID'))
-                .then(userClearance => {
-                    axios.get("/dashboard/clearance/" + userClearance.data)
-                        .then(database_dashboard => {
-                            this.setState({
-                                dashboard: database_dashboard.data.dashboardItems
-                            });
-                        })
-                        .catch(err => console.log(err));
-                })
+            .then(database_dashboard => {
+                this.setState({
+                    dashboard: database_dashboard.data.dashboardItems
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
         else {
             this.setState({
