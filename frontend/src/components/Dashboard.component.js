@@ -52,14 +52,17 @@ class DashboardItem extends Component {
                             var iconClass = item.icon + " fa-5x";
 
                             return (
-                                <div key={i} className="card cardStyle">
-                                    <div className="card-body">
-                                        <h5 className="card-title text-center scaleIcon"><i className={iconClass}></i></h5>
-                                        <h4 className="card-subtitle mb-2 text-muted scaleH4">{item.text}</h4>
-                                        <p className="card-text">{item.desc}</p>
-                                        <a className="btn btn-primary bg-navBlue btn-sm" href={item.href}>{item.text}</a>
+                                <a key={i} className="link-unstyled" href={item.href}>
+                                    <div className="row border border-dark p-5 m-3">
+                                        <div className="col-md-4">
+                                            <h5 className="text-center scaleIcon"><i className={iconClass}></i></h5>
+                                        </div>
+                                        <div className="col-md-8 p-3">
+                                            <h4>{item.text}</h4>
+                                            <p>{item.desc}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             )
                         })
                     }

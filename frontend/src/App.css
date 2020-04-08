@@ -31,6 +31,18 @@ body {
     background-color: #16425B;
 }
 
+.text-light-custom {
+    color: rgba(255,255,255,.5);
+}
+
+.text-light2-custom {
+    color: rgb(230, 230, 230);
+}
+
+.bg-leftBlue {
+    background-color: #3A7CA5;
+}
+
 .divRight {
     float: right;
     height: 100vh;
@@ -131,4 +143,9 @@ body {
     border-style: solid;
     border-color: black;
     border-width: 4px;
+}
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+  color: inherit;
+  text-decoration: inherit;
 }
