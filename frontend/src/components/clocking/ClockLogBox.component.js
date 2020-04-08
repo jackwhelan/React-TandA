@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import Week from './scheduling/week.component';
+import Week from './week.component';
 
 class ClockLogBox extends Component {
     constructor(props) {
