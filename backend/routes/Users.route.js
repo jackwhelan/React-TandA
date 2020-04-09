@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -25,6 +24,15 @@ router.delete('/:id', (req, res) => {
     User.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({ success: true })))
     .catch(err => res.status(404).json({ success: false }));
+});
+
+// @route   GET /users/:id
+// @desc    Gets a User
+// @access  Public
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id)
+        .then(user => res.json(user))
+        .catch(err => res.status(404).json(err));
 });
 
 // @route   POST /users/register
