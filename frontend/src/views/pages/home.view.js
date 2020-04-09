@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import Navbar from '../../components/AppNavbar.component';
+import Info from '../../components/notifiers/Info.component';
 
 class HomeView extends Component {
     render() {
+        if(this.props.location.state) {
+            console.log(this.props.location.state);
+            var info = <Info status={this.props.location.state.status}
+                             header={this.props.location.state.header}
+                             message={this.props.location.state.message}/>
+        }
+        else
+        {
+            var info = "";
+        }
         return (
             <div>
                 <Navbar />
-                <div className="container bg-tertiary p-5">
+                <div className="container bg-tertiary pb-5 px-5 pt-4">
+                    {info}
                     <div className="core-cont bg-lightgrey">
                         <h5>What is Lorem Ipsum?</h5>
                         <hr className="bg-black"/>

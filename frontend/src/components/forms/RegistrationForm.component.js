@@ -91,7 +91,14 @@ render() {
         alertIfError = <Alert error={this.state.error} />
     }
     if (this.state.redirect === true) {
-        return <Redirect to="/Dashboard" />
+        return <Redirect to={{
+            pathname:"/",
+            state: {
+                status: "success",
+                header: "Registration Succesful",
+                message: "Your registration has been successfully processed and you can now log in to your new account with the login button in the top right."
+            }
+        }}/>
     }
     return (
         <form onSubmit={this.handleSubmit}>
