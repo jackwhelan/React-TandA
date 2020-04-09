@@ -10,10 +10,7 @@ class HomeView extends Component {
                              header={this.props.location.state.header}
                              message={this.props.location.state.message}/>
         }
-        else
-        {
-            var info = "";
-        }
+        
         return (
             <div>
                 <Navbar />
