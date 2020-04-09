@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-import Alert from './Alert.component';
+import Alert from '../notifiers/Alert.component';
 
 class Form extends Component {
     constructor(props) {

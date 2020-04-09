@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from '../components/AppNavbar.component';
+import Navbar from '../../components/AppNavbar.component';
 import { Redirect } from 'react-router-dom';
 
 class DashboardView extends Component {

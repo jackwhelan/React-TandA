@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Navbar from '../components/AppNavbar.component';
-import ClockStatusBox from '../components/clocking/ClockStatusBox.component';
-import ClockLogBox from '../components/clocking/ClockLogBox.component';
+import Navbar from '../../components/AppNavbar.component';
+import ClockStatusBox from '../../components/clocking/ClockStatusBox.component';
+import ClockLogBox from '../../components/clocking/ClockLogBox.component';
 
 class ClockingView extends Component {
     render() {

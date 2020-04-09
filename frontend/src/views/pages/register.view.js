@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Navbar from '../components/AppNavbar.component';
-import Form from '../components/LoginForm.component';
+import Navbar from '../../components/AppNavbar.component';
+import Form from '../../components/forms/RegistrationForm.component';
 
-class LoginView extends Component {
+class RegisterView extends Component {
     render() {
         return (
             <div>
@@ -11,10 +11,10 @@ class LoginView extends Component {
                     <div id="mobile_hidden" className="divLeft"></div>
                     <div className="divRight">
                         <div className="divRightHeader">
-                            <h3>Login</h3>
+                            <h3>Register</h3>
                         </div>
                         <div className="divRightBody">
-                            <Form />
+                            <Form/>
                         </div>
                     </div>
                 </div>
@@ -23,4 +23,4 @@ class LoginView extends Component {
     }
 }
 
-export default LoginView;
+export default RegisterView;

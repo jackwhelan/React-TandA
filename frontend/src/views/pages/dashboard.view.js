@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Navbar from '../components/AppNavbar.component';
-import Dashboard from '../components/Dashboard.component';
+import Navbar from '../../components/AppNavbar.component';
+import Dashboard from '../../components/dashboard/Dashboard.component';
 
 class DashboardView extends Component {
     render() {

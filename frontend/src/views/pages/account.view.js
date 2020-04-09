@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Navbar from '../components/AppNavbar.component';
-import QR from '../components/QR.component';
+import Navbar from '../../components/AppNavbar.component';
+import QR from '../../components/clocking/QR.component';
 
 class AccountView extends Component {
     render() {
