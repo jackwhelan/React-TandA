@@ -6,6 +6,7 @@ const users = require('./routes/Users.route');
 const clocking = require('./routes/Clocking.route');
 const dashboard = require('./routes/Dashboard.route');
 const news = require('./routes/News.route');
+const payslip = require('./routes/Payslip.route');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/users', users);
 app.use('/clocking', clocking);
 app.use('/dashboard', dashboard);
 app.use('/news', news);
+app.use('/payslip', payslip);
 
 const port = process.env.PORT || 5000;
 
