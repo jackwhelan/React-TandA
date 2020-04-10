@@ -13,6 +13,7 @@ import AccountView from './views/pages/account.view';
 import ScheduleView from './views/pages/schedule.view';
 import NewsView from './views/pages/news.view';
 import QRView from './views/pages/qr.view';
+import PayPortalView from './views/pages/payportal.view';
 
 import GoodbyeView from './views/info/goodbye.view';
 import NotFoundView from './views/info/404.view';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/Schedule" component={ScheduleView} />
           <Route path="/News" component={NewsView} />
           <Route path="/QRCode" component={QRView} />
+          <Route path="/PayPortal" component={PayPortalView} />
           <Route component={NotFoundView} />
         </Switch>
       </Router>
