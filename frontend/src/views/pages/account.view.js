@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Navbar from '../../components/AppNavbar.component';
-import QR from '../../components/clocking/QR.component';
+import ModifyUserForm from '../../components/forms/ModifyUserForm.component';
 
 class AccountView extends Component {
     render() {
@@ -10,7 +10,7 @@ class AccountView extends Component {
                 <Navbar />
                 <div className="container bg-light p-5">
                     <h4>Account</h4><hr className="bg-black" />
-                    <QR id={localStorage.getItem("USER_ID")} />
+                    <ModifyUserForm />
                 </div>
             </div>
         )

@@ -6,11 +6,10 @@ const jwt = require('jsonwebtoken');
 process.env.SECRET_KEY = 'secret';
 
 // User Model
-const { User, RegistrationValidation } = require('../models/User.model');
+const { User, RegistrationValidation, UpdateValidation } = require('../models/User.model');
 
 // @route   GET /users
 // @desc    Get All Users
-// @access  Public
 router.get('/', (req, res) => {
     User.find()
     .sort({date:-1})
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
 
 // @route   DELETE /users/:id
 // @desc    Delete a User
-// @access  Public
 router.delete('/:id', (req, res) => {
     User.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({ success: true })))
@@ -28,7 +26,6 @@ router.delete('/:id', (req, res) => {
 
 // @route   GET /users/:id
 // @desc    Gets a User
-// @access  Public
 router.get('/:id', (req, res) => {
     User.findById(req.params.id)
         .then(user => res.json(user))
@@ -37,7 +34,6 @@ router.get('/:id', (req, res) => {
 
 // @route   POST /users/register
 // @desc    Register a user
-// @access  Public
 router.post('/register', (req, res) => {
     const {error} = RegistrationValidation(req.body);
     if(error) return res.status(400).json({
@@ -83,7 +79,6 @@ router.post('/register', (req, res) => {
 
 // @route   POST /users/login
 // @desc    Logs a user in
-// @access  Public
 router.post('/login', (req, res) => {
     User.findOne({
         username: req.body.username
@@ -104,21 +99,95 @@ router.post('/login', (req, res) => {
                     expiresIn: "1h"
                 });
 
-                res.json(token);
+                res.json({
+                    status: "success",
+                    header: "Success",
+                    message: "Logged in successfully.",
+                    token: token
+                });
             }
             else
             {
-                res.json({ error: 'Incorrect password' });
+                return res.json({
+                    status: "error",
+                    header: "Error",
+                    message: "The password you entered is incorrect."
+                });
             }
         }
         else
         {
-            res.json({error: 'User does not exist' });
+            return res.json({
+                status: "error",
+                header: "Error",
+                message: "The username you entered does not exist."
+            });
         }
     })
     .catch(err => {
         res.json({ error: err });
     });
 });
+
+// @route   PATCH /users/:id
+// @desc    Modifies a user
+router.patch('/:id', (req, res) => {
+    var UID = req.params.id;
+
+    var conditions = {
+        _id: UID
+    }
+
+    var update = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        email: req.body.email
+    }
+
+    const { error } = UpdateValidation(update);
+    if (error) return res.status(400).json({
+        status: 'error',
+        header: error.details[0].path[0],
+        message: error.details[0].message,
+    });
+
+    User.findOne({ username: req.body.username }).then(usernameMatch => {
+        if (usernameMatch && usernameMatch._id != UID) {
+            return res.json({
+                status: "error",
+                header: "Error",
+                message: "This username is already registered."
+            });
+        }
+    });
+
+    User.findOne({ email: req.body.email }).then(emailMatch => {
+        if (emailMatch && emailMatch._id != UID) {
+            return res.json({
+                status: "error",
+                header: "Error",
+                message: "This email address is already registered."
+            });
+        }
+    });
+
+    User.findOneAndUpdate(
+        conditions,
+        update,
+        { useFindAndModify: false }
+    )
+        .then(user => {
+                res.json({
+                    status: "success",
+                    header: "Success",
+                    message: "The user details you submitted are now stored and up to date.",
+                });
+            }
+        )
+        .catch(err => {
+            res.json({ err });
+        });
+})
 
 module.exports = router;
