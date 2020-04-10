@@ -15,6 +15,15 @@ router.get('/', (req, res) => {
         .catch(err => res.json(err));
 });
 
+// @route   GET /payslip
+// @desc    Get Payslips by UID
+router.get('/:uid', (req, res) => {
+    Payslip.find({ UID: req.params.uid })
+        .sort({ datetime: -1 })
+        .then(payslips => res.json(payslips))
+        .catch(err => res.json(err));
+});
+
 // @route   DELETE /payslip/:id
 // @desc    Delete a Payslip
 router.delete('/:id', (req, res) => {

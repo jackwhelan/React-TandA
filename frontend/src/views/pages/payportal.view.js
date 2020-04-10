@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from '../../components/AppNavbar.component';
 import Greeting from '../../components/notifiers/Greeting.component';
+import PaySlipLog from '../../components/payportal/PayslipLog.component';
 
 class PayPortalView extends Component {
     render() {
@@ -12,6 +13,7 @@ class PayPortalView extends Component {
                     <Greeting context="Welcome to the Pay Portal.">
                         Here you can access your previous payslips. If you have any queries regarding your payslips you should contact your manager. You may also wish to claim expenses or compensation, to find out if you are eligible for certain expense compensation, fill out the <a className='text-leftBlue' href='#notImplemented'>Expense Compensation Eligibility</a> form.
                     </Greeting>
+                    <PaySlipLog/>
                 </div>
             </div>
         )
