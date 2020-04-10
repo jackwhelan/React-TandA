@@ -12,6 +12,7 @@ import ClockingView from './views/pages/clocking.view';
 import AccountView from './views/pages/account.view';
 import ScheduleView from './views/pages/schedule.view';
 import NewsView from './views/pages/news.view';
+import QRView from './views/pages/qr.view';
 
 import GoodbyeView from './views/info/goodbye.view';
 import NotFoundView from './views/info/404.view';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/Account" component={AccountView} />
           <Route path="/Schedule" component={ScheduleView} />
           <Route path="/News" component={NewsView} />
+          <Route path="/QRCode" component={QRView} />
           <Route component={NotFoundView} />
         </Switch>
       </Router>

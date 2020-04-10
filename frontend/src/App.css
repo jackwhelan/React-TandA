@@ -161,3 +161,7 @@ body {
     padding-left: 2vw;
     padding-right: 2vw;
 }
+
+.doublecol {
+    columns: 2 auto;
+}

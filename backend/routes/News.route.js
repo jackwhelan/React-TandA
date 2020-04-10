@@ -11,7 +11,7 @@ const News = require('../models/News.model');
 // @access  Public
 router.get('/', (req, res) => {
     News.find()
-        .sort({ date: -1 })
+        .sort({ datetime: -1 })
         .then(news => res.json(news));
 });
 

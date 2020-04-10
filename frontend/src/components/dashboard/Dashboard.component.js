@@ -46,18 +46,18 @@ class DashboardItem extends Component {
         {
             var dbitems = this.state.dashboard;
             return (
-                <div className="centerMobile">
+                <div className="doublecol centerMobile">
                     {
                         dbitems.map((item, i) => {
                             var iconClass = item.icon + " fa-5x";
 
                             return (
                                 <a key={i} className="link-unstyled" href={item.href}>
-                                    <div className="row border border-dark p-5 m-3">
-                                        <div className="col-md-4">
+                                    <div className="row">
+                                        <div className="border border-dark col-md-4 p-3">
                                             <h5 className="text-center scaleIcon"><i className={iconClass}></i></h5>
                                         </div>
-                                        <div className="col-md-8 p-3">
+                                        <div className="border border-dark col-md-8 p-3">
                                             <h4>{item.text}</h4>
                                             <p>{item.desc}</p>
                                         </div>
