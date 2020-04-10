@@ -8,8 +8,8 @@ class Greeting extends Component {
             greeting = greeting + ", " + context
         }
         return (
-            <div className="text-muted">
-                {greeting}
+            <div className="border border-dark rounded p-4">
+                <h6>{greeting}</h6><hr className="bg-dark"></hr>{this.props.children}
             </div>
         )
     }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import DashboardItem from './DashboardItem.component';
 
-class DashboardItem extends Component {
+class Dashboard extends Component {
     constructor(props) {
         super(props);
 
@@ -50,19 +51,14 @@ class DashboardItem extends Component {
                     {
                         dbitems.map((item, i) => {
                             var iconClass = item.icon + " fa-5x";
-
                             return (
-                                <a key={i} className="link-unstyled" href={item.href}>
-                                    <div className="row">
-                                        <div className="border border-dark col-md-4 p-3">
-                                            <h5 className="text-center scaleIcon"><i className={iconClass}></i></h5>
-                                        </div>
-                                        <div className="border border-dark col-md-8 p-3">
-                                            <h4>{item.text}</h4>
-                                            <p>{item.desc}</p>
-                                        </div>
-                                    </div>
-                                </a>
+                                <DashboardItem
+                                    key={i}
+                                    href={item.href}
+                                    iconClass={iconClass}
+                                    text={item.text}
+                                    desc={item.desc}
+                                />
                             )
                         })
                     }
@@ -72,4 +68,4 @@ class DashboardItem extends Component {
     }
 }
 
-export default DashboardItem;
+export default Dashboard;

@@ -5,7 +5,6 @@ import Info from '../../components/notifiers/Info.component';
 class HomeView extends Component {
     render() {
         if(this.props.location.state) {
-            console.log(this.props.location.state);
             var info = <Info status={this.props.location.state.status}
                              header={this.props.location.state.header}
                              message={this.props.location.state.message}/>

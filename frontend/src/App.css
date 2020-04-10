@@ -31,6 +31,10 @@ body {
     background-color: #16425B;
 }
 
+.text-navBlue {
+    color: #16425B;
+}
+
 .text-light-custom {
     color: rgba(255,255,255,.5);
 }
@@ -41,6 +45,10 @@ body {
 
 .bg-leftBlue {
     background-color: #3A7CA5;
+}
+
+.text-leftBlue {
+    color: #3A7CA5;
 }
 
 .divRight {
@@ -164,4 +172,19 @@ body {
 
 .doublecol {
     columns: 2 auto;
+}
+
+    .margin-dash {
+        margin-bottom: 1vh;
+        margin-left: 0.5vw;
+    }
+
+@media screen and (max-width: 991px) {
+   .doublecol {
+        columns: 1 auto;
+    }
+
+    .dash-split {
+        margin-left: 1vh;
+    }
 }

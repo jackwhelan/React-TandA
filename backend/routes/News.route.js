@@ -8,16 +8,15 @@ const News = require('../models/News.model');
 
 // @route   GET /news
 // @desc    Get All News
-// @access  Public
 router.get('/', (req, res) => {
     News.find()
         .sort({ datetime: -1 })
-        .then(news => res.json(news));
+        .then(news => res.json(news))
+        .catch(err => res.json(err));
 });
 
 // @route   DELETE /news/:id
 // @desc    Delete a News item
-// @access  Public
 router.delete('/:id', (req, res) => {
     News.findById(req.params.id)
         .then(item => item.remove().then(() => res.json({ status: "Success" })))
@@ -26,7 +25,6 @@ router.delete('/:id', (req, res) => {
 
 // @route   POST /news/add
 // @desc    Add a news item
-// @access  Public
 router.post('/add', (req, res) => {
     const newItem = new News({
         title: req.body.title,

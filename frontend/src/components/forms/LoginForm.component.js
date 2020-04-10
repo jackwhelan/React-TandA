@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-import Alert from '../notifiers/Alert.component';
+import Info from '../notifiers/Info.component';
 
 class Form extends Component {
     constructor(props) {
@@ -11,8 +11,8 @@ class Form extends Component {
         this.state = {
             username: '',
             password: '',
-            token: '',
-            redirectToReferrer: false
+            response: undefined,
+            redirect: false
         }
     }
 
@@ -31,51 +31,41 @@ class Form extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.setState({
-            error: undefined,
-        })
-
         axios.post("/users/login", this.state)
         .then(res => {
             this.setState({
-                token: res.data,
+                response: res.data,
             })
         })
         .then( () => {
-            if(this.state.token.error)
+            if(this.state.response.token)
             {
-                this.setState({
-                    error: this.state.token.error,
-                    token: undefined
-                })
-            }
-            else
-            {
-                localStorage.setItem('USER_ID', jwt.verify(this.state.token, 'secret').id);
-                localStorage.setItem('USER_FIRSTNAME', jwt.verify(this.state.token, 'secret').firstname);
-                localStorage.setItem('USER_LASTNAME', jwt.verify(this.state.token, 'secret').lastname);
-                localStorage.setItem('USER_USERNAME', jwt.verify(this.state.token, 'secret').username);
-                localStorage.setItem('USER_EMAIL', jwt.verify(this.state.token, 'secret').email);
-                localStorage.setItem('USER_CREATED', jwt.verify(this.state.token, 'secret').created);
-                localStorage.setItem('USER_TOKEN', this.state.token);
+                localStorage.setItem('USER_ID', jwt.verify(this.state.response.token, 'secret').id);
+                localStorage.setItem('USER_FIRSTNAME', jwt.verify(this.state.response.token, 'secret').firstname);
+                localStorage.setItem('USER_LASTNAME', jwt.verify(this.state.response.token, 'secret').lastname);
+                localStorage.setItem('USER_USERNAME', jwt.verify(this.state.response.token, 'secret').username);
+                localStorage.setItem('USER_EMAIL', jwt.verify(this.state.response.token, 'secret').email);
+                localStorage.setItem('USER_CREATED', jwt.verify(this.state.response.token, 'secret').created);
+                localStorage.setItem('USER_TOKEN', this.state.response.token);
             }
         })
         .then(() => {
-            if (this.state.error) {
+            if (this.state.response.status === 'error') {
                 this.setState({
-                    redirectToReferrer: false
+                    redirect: false
                 })
             }
             else
             {
                 this.setState({
-                    redirectToReferrer: true
+                    redirect: true
                 })
             }
         })
         .catch(err => {
             this.setState({
-                error: "System error, please contact system administrator.",
+                status: "error",
+                header: "System error",
                 message: err
             })
         })
@@ -90,15 +80,18 @@ class Form extends Component {
     }
 
     render() {
-        let alertIfError;
-        if (this.state.error) {
-            alertIfError = <Alert error={this.state.error} />
+        if (this.state.response) {
+            var info = <Info status={this.state.response.status}
+                header={this.state.response.header}
+                message={this.state.response.message}
+                key={Math.random()} />
         }
-        if (this.state.redirectToReferrer === true) {
+        if (this.state.redirect === true) {
             return <Redirect to="/Dashboard" />
         }
         return (
             <form onSubmit={this.handleSubmit}>
+                {info}
                 <div className="mt-4">
                     <label>Username</label>
                     <input
@@ -110,7 +103,7 @@ class Form extends Component {
                     />
                 </div>
 
-                <div className="mb-5">
+                <div className="mt-4 mb-5">
                     <label>Password</label>
                     <input
                         type="password"
@@ -119,7 +112,6 @@ class Form extends Component {
                         onChange={this.handlePasswordChange}
                         required
                     />
-                    {alertIfError}
                 </div>
 
                 <button type="submit" className="btn btn-black">Login</button>

@@ -141,7 +141,7 @@ render() {
                 />
             </div>
 
-            <div>
+            <div className="mt-4">
                 <label>Password</label>
                 <input
                     type="password"
@@ -154,7 +154,7 @@ render() {
                 />
             </div>
 
-            <div className="mb-5">
+            <div className="mt-4 mb-5">
                 <label>Email</label>
                 <input
                     type="email"
