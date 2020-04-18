@@ -5,9 +5,8 @@ const router = express.Router();
 const Dashboard = require('../models/Dashboard.model');
 const { User } = require('../models/User.model');
 
-// @route   GET /user
-// @desc    Get All Clockings
-// @access  Public
+// @route   GET /dashboard/:id
+// @desc    Get the dashboard for a given user ID
 router.get('/:id', (req, res) => {
     User.findOne({
         _id: req.params.id

@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
         .catch(err => res.json(err));
 });
 
-// @route   GET /payslip
+// @route   GET /payslip/:uid
 // @desc    Get Payslips by UID
 router.get('/:uid', (req, res) => {
     Payslip.find({ UID: req.params.uid })
@@ -28,7 +28,11 @@ router.get('/:uid', (req, res) => {
 // @desc    Delete a Payslip
 router.delete('/:id', (req, res) => {
     Payslip.findById(req.params.id)
-        .then(item => item.remove().then(() => res.json({ status: "Success" })))
+        .then(item => {
+            item.remove().then(() => {
+                res.json({ status: "Success" })
+            })
+        })
         .catch(err => res.status(404).json({ status: "Failure"}));
 });
 

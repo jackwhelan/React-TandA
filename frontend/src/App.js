@@ -14,7 +14,6 @@ import ScheduleView from './views/pages/schedule.view';
 import NewsView from './views/pages/news.view';
 import QRView from './views/pages/qr.view';
 import PayPortalView from './views/pages/payportal.view';
-
 import GoodbyeView from './views/info/goodbye.view';
 import NotFoundView from './views/info/404.view';
 

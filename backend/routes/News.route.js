@@ -19,8 +19,16 @@ router.get('/', (req, res) => {
 // @desc    Delete a News item
 router.delete('/:id', (req, res) => {
     News.findById(req.params.id)
-        .then(item => item.remove().then(() => res.json({ status: "Success" })))
-        .catch(err => res.status(404).json({ status: "Failure" }));
+        .then(item => {
+            item.remove().then(() => {
+                res.json({ status: "Success" })
+            })
+        })
+        .catch(err => {
+            res.status(404).json({
+                status: "Failure"
+            })
+        });
 });
 
 // @route   POST /news/add

@@ -102,7 +102,7 @@ class AppNavbar extends Component {
             <div>
                 <Navbar className="bg-navBlue" dark expand="sm">
                     <Container>
-                        <NavbarBrand href="/">Staff Portal <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
+                        <NavbarBrand href="/">TIMA <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             {
