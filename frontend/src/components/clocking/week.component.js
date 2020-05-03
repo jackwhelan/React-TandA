@@ -11,6 +11,19 @@ class Week extends Component {
     getOrdinal(n) {
         return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
     }
+
+    calcTotalForDay = (day) => {
+            if(day) {
+                
+
+                return <div>
+                    <hr></hr>
+                    <h6>Worked:</h6>
+                </div>
+            }
+        }
+        
+    
     updateLog() {
         if (localStorage.getItem('USER_ID')) {
             axios.get("/clocking/list/" + localStorage.getItem('USER_ID'))

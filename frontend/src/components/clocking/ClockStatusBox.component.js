@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import LiveClock from 'react-live-clock';
 
 class ClockStatusBox extends Component {
     constructor(props) {
@@ -9,33 +10,41 @@ class ClockStatusBox extends Component {
         }
     }
 
-    statusUpdate() {
-        Axios.get('/clocking/status/' + localStorage.getItem('USER_ID'))
-            .then(res => {
-                this.setState({
-                    clockStatus: 'Clocked ' + res.data
+    async statusUpdate() {
+        try
+        {
+            Axios.get('/clocking/status/' + localStorage.getItem('USER_ID'))
+                .then(res => {
+                    this.setState({
+                        clockStatus: 'Clocked ' + res.data
+                    })
                 })
-            })
-            .then(() => {
-                const clockInButton = document.getElementById("clockInButton");
-                const clockOutButton = document.getElementById("clockOutButton");
+                .then(() => {
+                    const clockInButton = document.getElementById("clockInButton");
+                    const clockOutButton = document.getElementById("clockOutButton");
 
-                if (this.state.clockStatus.includes("out")) {
-                    this.setState({
-                        textColour: '#d9534f'
-                    })
+                    if (this.state.clockStatus.includes("out")) {
+                        this.setState({
+                            textColour: '#d9534f'
+                        })
 
-                    clockInButton.classList.remove("disabled");
-                    clockOutButton.classList.add("disabled");
-                } else {
-                    this.setState({
-                        textColour: '#5cb85c'
-                    })
+                        clockInButton.classList.remove("disabled");
+                        clockOutButton.classList.add("disabled");
+                    } else {
+                        this.setState({
+                            textColour: '#5cb85c'
+                        })
 
-                    clockInButton.classList.add("disabled");
-                    clockOutButton.classList.remove("disabled");
-                }
-            })
+                        clockInButton.classList.add("disabled");
+                        clockOutButton.classList.remove("disabled");
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
 
     componentDidMount() {
@@ -100,6 +109,11 @@ class ClockStatusBox extends Component {
                             className="card-title text-center mb-2 outline scaleH1">
                                 {this.state.clockStatus}
                         </h1>
+                        <div className="text-center">
+                            <span className="text-muted scaleH1">
+                                <LiveClock format="HH:mm:ss" ticking={true}/>
+                            </span>
+                        </div>
                     </div>
                     <div className="text-center mb-4">
                         <a id="clockInButton" className="btn btn-primary btn-sm mr-2" onClick={this.postClockIn} href="#ClockIn">Clock In</a>
