@@ -53,6 +53,7 @@ router.post('/register', (req, res) => {
     User.findOne({ username: req.body.username }).then(usernameMatch => {
         if (usernameMatch) {
             return res.json({
+                status: 'error',
                 error: 'Username is already registered'
             });
         }
@@ -61,6 +62,7 @@ router.post('/register', (req, res) => {
     User.findOne({ email: req.body.email }).then(emailMatch => {
         if (emailMatch) {
             return res.json({
+                status: 'error',
                 error: 'Email is already registered'
             });
         }
@@ -177,7 +179,7 @@ router.patch('/:id', (req, res) => {
         update,
         { useFindAndModify: false }
     )
-        .then(user => {
+        .then(() => {
                 res.json({
                     status: "success",
                     header: "Success",

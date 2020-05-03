@@ -12,15 +12,26 @@ class News extends Component {
     }
 
     componentDidMount() {
-        axios.get('/news')
-        .then(news => {
-            this.setState({
-                newsItems: news.data
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        this.getNews();
+    }
+
+    async getNews() {
+        try
+        {
+            axios.get('/news')
+                .then(news => {
+                    this.setState({
+                        newsItems: news.data
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
 
     render() {

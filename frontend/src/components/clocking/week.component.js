@@ -7,7 +7,10 @@ class Week extends Component {
     state = {
         clockings: []
     }
-    
+
+    getOrdinal(n) {
+        return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
+    }
     updateLog() {
         if (localStorage.getItem('USER_ID')) {
             axios.get("/clocking/list/" + localStorage.getItem('USER_ID'))
@@ -89,11 +92,19 @@ class Week extends Component {
             
             var clockings = this.organizeClockings();
 
+            const day = DayJS().format('dddd');
+            const showDiv = document.getElementById(day);
+            if(showDiv)
+            {
+                showDiv.style.display = "block";
+            }
+            
+
             return (
                 <div>
                     <div className="week row">
-                        <div className="day col-sm">
-                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Monday | { DayJS().startOf('isoWeek').format('D') }th</h6>
+                        <div id="Monday" className="day col-sm">
+                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Monday | { this.getOrdinal(DayJS().startOf('isoWeek').format('D')) }</h6>
                             {
                                 clockings.monday.map((item, i) => {
                                     var datetime = item.datetime;
@@ -113,8 +124,8 @@ class Week extends Component {
                                 })
                             }
                         </div>
-                        <div className="day col-sm">
-                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Tuesday | {DayJS().startOf('isoWeek').add(1, 'day').format('D')}th</h6>
+                        <div id="Tuesday" className="day col-sm">
+                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Tuesday | {this.getOrdinal(DayJS().startOf('isoWeek').add(1, 'day').format('D'))}</h6>
                             {
                                 clockings.tuesday.map((item, i) => {
                                     var datetime = item.datetime;
@@ -132,8 +143,8 @@ class Week extends Component {
                                 })
                             }
                         </div>
-                        <div className="day col-sm">
-                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Wednesday | {DayJS().startOf('isoWeek').add(2, 'day').format('D')}th</h6>
+                        <div id="Wednesday" className="day col-sm">
+                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Wednesday | {this.getOrdinal(DayJS().startOf('isoWeek').add(2, 'day').format('D'))}</h6>
                             {
                                 clockings.wednesday.map((item, i) => {
                                     var datetime = item.datetime;
@@ -151,8 +162,8 @@ class Week extends Component {
                                 })
                             }
                         </div>
-                        <div className="day col-sm">
-                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Thursday | {DayJS().startOf('isoWeek').add(3, 'day').format('D')}th</h6>
+                        <div id="Thursday" className="day col-sm">
+                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Thursday | {this.getOrdinal(DayJS().startOf('isoWeek').add(3, 'day').format('D'))}</h6>
                             {
                                 clockings.thursday.map((item, i) => {
                                     var datetime = item.datetime;
@@ -169,9 +180,10 @@ class Week extends Component {
                                     }
                                 })
                             }
+                            {clockings.thursday && this.calcTotalForDay(clockings.thursday)}
                         </div>
-                        <div className="day col-sm">
-                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Friday | {DayJS().startOf('isoWeek').add(4, 'day').format('D')}th</h6>
+                        <div id="Friday" className="day col-sm">
+                            <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Friday | {this.getOrdinal(DayJS().startOf('isoWeek').add(4, 'day').format('D'))}</h6>
                             {
                                 clockings.friday.map((item, i) => {
                                     var datetime = item.datetime;

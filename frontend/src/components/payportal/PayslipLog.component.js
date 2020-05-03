@@ -12,15 +12,26 @@ class PaySlipLog extends Component {
     }
 
     componentDidMount() {
-        axios.get('/payslip/' + localStorage.getItem('USER_ID'))
-            .then(payslips => {
-                this.setState({
-                    payslipLog: payslips.data
+        this.getPayslips();
+    }
+
+    async getPayslips() {
+        try
+        {
+            axios.get('/payslip/' + localStorage.getItem('USER_ID'))
+                .then(payslips => {
+                    this.setState({
+                        payslipLog: payslips.data
+                    })
                 })
-            })
-            .catch(err => {
-                console.log(err);
-            })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
 
     render() {
