@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Components Login 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <div
+    className="mt-4"
+  >
+    <label>
+      Username
+    </label>
+    <input
+      className="form-control"
+      onChange={[Function]}
+      required={true}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="mt-4 mb-5"
+  >
+    <label>
+      Password
+    </label>
+    <input
+      className="form-control"
+      onChange={[Function]}
+      required={true}
+      type="password"
+      value=""
+    />
+  </div>
+  <button
+    className="btn btn-black"
+    type="submit"
+  >
+    Login
+  </button>
+</form>
+`;
+
+exports[`Form Components Modify User 1`] = `null`;
+
+exports[`Form Components Register 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <div
+    className="mt-4"
+  >
+    <label>
+      First Name
+    </label>
+    <input
+      className="form-control"
+      maxLength="30"
+      minLength="2"
+      onChange={[Function]}
+      required={true}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="mt-4"
+  >
+    <label>
+      Last Name
+    </label>
+    <input
+      className="form-control"
+      maxLength="30"
+      minLength="2"
+      onChange={[Function]}
+      required={true}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="mt-4"
+  >
+    <label>
+      Username
+    </label>
+    <input
+      className="form-control"
+      maxLength="30"
+      minLength="3"
+      onChange={[Function]}
+      required={true}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="mt-4"
+  >
+    <label>
+      Password
+    </label>
+    <input
+      className="form-control"
+      maxLength="100"
+      minLength="6"
+      onChange={[Function]}
+      required={true}
+      type="password"
+      value=""
+    />
+  </div>
+  <div
+    className="mt-4 mb-5"
+  >
+    <label>
+      Email
+    </label>
+    <input
+      className="form-control"
+      onChange={[Function]}
+      required={true}
+      type="email"
+      value=""
+    />
+  </div>
+  <button
+    className="btn btn-black"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;

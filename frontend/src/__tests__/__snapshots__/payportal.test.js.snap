@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pay Portal Components Payslip Log 1`] = `
+<div
+  className="core-cont bg-lightgrey mt-4"
+>
+  <h2>
+    Loading...
+  </h2>
+  <hr
+    className="bg-black"
+  />
+  <p>
+    We are attempting to load news items from the database, if this problem persists, please contact a system administrator.
+  </p>
+</div>
+`;

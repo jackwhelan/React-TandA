@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifier Components Alert 1`] = `
+<div
+  className="mt-2 text-danger"
+/>
+`;
+
+exports[`Notifier Components Greeting 1`] = `
+<div
+  className="border border-dark rounded p-4"
+>
+  <h6>
+    Hello null
+  </h6>
+  <hr
+    className="bg-dark"
+  />
+</div>
+`;
+
+exports[`Notifier Components Info => Error 1`] = `
+<div
+  className="infoComponent"
+  style={
+    Object {
+      "backgroundColor": "#d9534f",
+    }
+  }
+>
+  <h5 />
+  <p />
+</div>
+`;
+
+exports[`Notifier Components Info => Success 1`] = `
+<div
+  className="infoComponent"
+  style={
+    Object {
+      "backgroundColor": "#5cb85c",
+    }
+  }
+>
+  <h5 />
+  <p />
+</div>
+`;
+
+exports[`Notifier Components Info => Warning 1`] = `
+<div
+  className="infoComponent"
+  style={
+    Object {
+      "backgroundColor": "#d9534f",
+    }
+  }
+>
+  <h5 />
+  <p />
+</div>
+`;

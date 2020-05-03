@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Clocking Components Clock Log Box 1`] = `null`;
+
+exports[`Clocking Components Clock Status Box 1`] = `
+<div
+  className="d50m100"
+>
+  <div
+    className="card bg-navBlue"
+  >
+    <div
+      className="card-body"
+    >
+      <h1
+        className="card-title text-center mb-2 outline scaleH1"
+        style={
+          Object {
+            "color": undefined,
+            "letterSpacing": "1px",
+          }
+        }
+      >
+        loading...
+      </h1>
+    </div>
+    <div
+      className="text-center mb-4"
+    >
+      <a
+        className="btn btn-primary btn-sm mr-2"
+        href="#ClockIn"
+        id="clockInButton"
+        onClick={[Function]}
+      >
+        Clock In
+      </a>
+      <a
+        className="btn btn-primary btn-sm"
+        href="#ClockOut"
+        id="clockOutButton"
+        onClick={[Function]}
+      >
+        Clock Out
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Clocking Components Day => in 1`] = `
+<div
+  className="text-center border rounded border-dark mb-3 p-3"
+>
+  Clocked 
+  <span
+    style={
+      Object {
+        "color": "#5cb85c",
+        "fontWeight": "bolder",
+      }
+    }
+  >
+    in
+  </span>
+  <br />
+  <hr
+    style={
+      Object {
+        "backgroundColor": "black",
+        "margin": 0,
+      }
+    }
+  />
+  Time: 
+</div>
+`;
+
+exports[`Clocking Components Day => out 1`] = `
+<div
+  className="text-center border rounded border-dark mb-3 p-3"
+>
+  Clocked 
+  <span
+    style={
+      Object {
+        "color": "#d9534f",
+        "fontWeight": "bolder",
+      }
+    }
+  >
+    out
+  </span>
+  <br />
+  <hr
+    style={
+      Object {
+        "backgroundColor": "black",
+        "margin": 0,
+      }
+    }
+  />
+  Time: 
+</div>
+`;
+
+exports[`Clocking Components QR 1`] = `
+<div
+  className="container row"
+>
+  <div
+    className="col-sm-6 p-5"
+  >
+    <h5>
+      Your QR Code
+    </h5>
+    This QR code serves as a unique identifier for your account. Scan this with the android app on your phone if you want to use your mobile device to clock in or out from now on!
+  </div>
+  <div
+    className="col-sm-6 text-center border border-dark p-5"
+  >
+    <canvas
+      height={128}
+      style={
+        Object {
+          "height": 128,
+          "width": 128,
+        }
+      }
+      width={128}
+    />
+  </div>
+</div>
+`;
+
+exports[`Clocking Components Week 1`] = `
+<div>
+  <div
+    className="week row"
+  >
+    <div
+      className="day col-sm"
+    >
+      <h6
+        className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2"
+      >
+        Monday | 
+        13
+        th
+      </h6>
+    </div>
+    <div
+      className="day col-sm"
+    >
+      <h6
+        className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2"
+      >
+        Tuesday | 
+        14
+        th
+      </h6>
+    </div>
+    <div
+      className="day col-sm"
+    >
+      <h6
+        className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2"
+      >
+        Wednesday | 
+        15
+        th
+      </h6>
+    </div>
+    <div
+      className="day col-sm"
+    >
+      <h6
+        className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2"
+      >
+        Thursday | 
+        16
+        th
+      </h6>
+    </div>
+    <div
+      className="day col-sm"
+    >
+      <h6
+        className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2"
+      >
+        Friday | 
+        17
+        th
+      </h6>
+    </div>
+  </div>
+</div>
+`;

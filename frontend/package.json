@@ -10,13 +10,16 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "canvas-prebuilt": "^2.0.0-alpha.14",
     "dayjs": "^1.8.23",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "minimist": "^1.2.5",
     "qrcode.react": "^1.0.0",
     "react": "^16.13.1",
+    "react-clock": "^2.4.0",
     "react-dom": "^16.13.1",
+    "react-live-clock": "^4.0.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "react-transition-group": "^4.3.0",
@@ -26,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "canvas": "^2.6.1",
+    "react-test-renderer": "^16.13.1"
   }
 }
