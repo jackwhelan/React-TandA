@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../../components/AppNavbar.component';
-import Week from '../../components/clocking/week.component';
+import Schedule from '../../components/Schedule.component';
 
 class HomeView extends Component {
     render() {
@@ -8,7 +8,7 @@ class HomeView extends Component {
             <div>
                 <Navbar />
                 <div className="container bg-tertiary p-5">
-                   <Week />
+                   <Schedule/>
                 </div>
             </div>
         )

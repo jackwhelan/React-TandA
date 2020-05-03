@@ -7,7 +7,7 @@ const clocking = require('./routes/Clocking.route');
 const dashboard = require('./routes/Dashboard.route');
 const news = require('./routes/News.route');
 const payslip = require('./routes/Payslip.route');
-
+const schedule = require('./routes/Schedule.route');
 const app = express();
 
 app.use(bodyParser.json());
@@ -32,6 +32,7 @@ app.use('/clocking', clocking);
 app.use('/dashboard', dashboard);
 app.use('/news', news);
 app.use('/payslip', payslip);
+app.use('/schedule', schedule);
 
 const port = process.env.PORT || 5000;
 
