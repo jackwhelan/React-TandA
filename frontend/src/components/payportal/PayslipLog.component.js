@@ -18,7 +18,7 @@ class PaySlipLog extends Component {
     async getPayslips() {
         try
         {
-            axios.get('http://80.111.46.244:5000/payslip/' + localStorage.getItem('USER_ID'))
+            axios.get('/payslip/' + localStorage.getItem('USER_ID'))
                 .then(payslips => {
                     this.setState({
                         payslipLog: payslips.data

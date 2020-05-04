@@ -13,7 +13,7 @@ class ClockStatusBox extends Component {
     async statusUpdate() {
         try
         {
-            Axios.get('http://80.111.46.244:5000/clocking/status/' + localStorage.getItem('USER_ID'))
+            Axios.get('/clocking/status/' + localStorage.getItem('USER_ID'))
                 .then(res => {
                     this.setState({
                         clockStatus: 'Clocked ' + res.data
@@ -54,7 +54,7 @@ class ClockStatusBox extends Component {
     postClockIn = () => {
         if (this.state.clockStatus.includes("out"))
         {
-            Axios.post('http://80.111.46.244:5000/clocking/in/' + localStorage.getItem('USER_ID'), {
+            Axios.post('/clocking/in/' + localStorage.getItem('USER_ID'), {
                 username: localStorage.getItem('USER_USERNAME')
             })
                 .then(() => {
@@ -78,7 +78,7 @@ class ClockStatusBox extends Component {
     postClockOut = () => {
         if (this.state.clockStatus.includes("in"))
         {
-            Axios.post('http://80.111.46.244:5000/clocking/out/' + localStorage.getItem('USER_ID'), {
+            Axios.post('/clocking/out/' + localStorage.getItem('USER_ID'), {
                 username: localStorage.getItem('USER_USERNAME')
             })
                 .then(() => {
