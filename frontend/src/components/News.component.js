@@ -18,7 +18,7 @@ class News extends Component {
     async getNews() {
         try
         {
-            axios.get('/news')
+            axios.get('http://80.111.46.244:5000/news')
                 .then(news => {
                     this.setState({
                         newsItems: news.data
