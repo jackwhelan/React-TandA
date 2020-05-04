@@ -17,7 +17,7 @@ class Schedule extends Component {
 
     getSchedule() {
         try {
-            axios.get('/schedule')
+            axios.get('http://80.111.46.244:5000/schedule')
                 .then(schedule => {
                     this.setState({
                         events: schedule.data
