@@ -10,22 +10,12 @@ import {
     Container
 } from 'reactstrap';
 import { Redirect, withRouter } from 'react-router-dom';
-import Clock from 'react-clock';
+import NavClock from './NavClock.component';
 
 class AppNavbar extends Component {
     state = {
         isOpen: false,
-        redirectToReferrer: false,
-        date: new Date()
-    }
-
-    componentDidMount() {
-        setInterval(
-            () => {
-                this.setState({ date: new Date() })
-            },
-            1000
-        );
+        redirectToReferrer: false
     }
 
     toggle = () => {
@@ -113,7 +103,7 @@ class AppNavbar extends Component {
             <div>
                 <Navbar className="bg-navBlue" dark expand="lg">
                     <Container>
-                        <Clock value={this.state.date} size={35} /><NavbarBrand style={{marginLeft: "1em"}} href="/">TIMA <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
+                        <NavClock/><NavbarBrand style={{marginLeft: "1em"}} href="/">TIMA <span className="text-muted">| { this.getPath() }</span></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             {

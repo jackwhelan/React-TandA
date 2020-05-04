@@ -12,13 +12,22 @@ class Week extends Component {
         return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
     }
 
-    calcTotalForDay = (day) => {
-            if(day) {
-                
+    calcTotalForDay = (clockings) => {
+        console.log(clockings)
+        var totalWorked = 0;
 
-                return <div>
+            if(clockings.length > 0) {
+                for (var i = 0; i < clockings.length; i+=2)
+                {
+                    const inTime = DayJS(clockings[i].datetime);
+                    const outTime = DayJS(clockings[i+1].datetime);
+                    const diff = DayJS(inTime.diff(outTime));
+                    totalWorked += diff;
+                }
+
+                return <div className="text-center">
                     <hr></hr>
-                    <h6>Worked:</h6>
+                    <h6>Worked: {DayJS(totalWorked).subtract(1, 'hour').format('HH:MM:ss')}</h6>
                 </div>
             }
         }
@@ -44,6 +53,9 @@ class Week extends Component {
     }
 
     organizeClockings() {
+        var isBetween = require('dayjs/plugin/isBetween')
+        DayJS.extend(isBetween)
+
         var clockings = {
             monday: [],
             tuesday: [],
@@ -55,31 +67,33 @@ class Week extends Component {
         }
 
         this.state.clockings.forEach(item => {
-            switch (DayJS(item.datetime).format('dddd')) {
-                case 'Monday':
-                    clockings.monday.push(item);
-                    break
-                case 'Tuesday':
-                    clockings.tuesday.push(item);
-                    break
-                case 'Wednesday':
-                    clockings.wednesday.push(item);
-                    break
-                case 'Thursday':
-                    clockings.thursday.push(item);
-                    break
-                case 'Friday':
-                    clockings.friday.push(item);
-                    break
-                case 'Saturday':
-                    clockings.saturday.push(item);
-                    break
-                case 'Sunday':
-                    clockings.sunday.push(item);
-                    break
-                default:
-                    console.log('Default Case In Week Component');
-                    break;
+            if (DayJS(item.datetime).isBetween(DayJS().startOf('isoWeek'), DayJS().startOf('isoWeek').add(4, 'day'))) {
+                switch (DayJS(item.datetime).format('dddd')) {
+                    case 'Monday':
+                        clockings.monday.push(item);
+                        break
+                    case 'Tuesday':
+                        clockings.tuesday.push(item);
+                        break
+                    case 'Wednesday':
+                        clockings.wednesday.push(item);
+                        break
+                    case 'Thursday':
+                        clockings.thursday.push(item);
+                        break
+                    case 'Friday':
+                        clockings.friday.push(item);
+                        break
+                    case 'Saturday':
+                        clockings.saturday.push(item);
+                        break
+                    case 'Sunday':
+                        clockings.sunday.push(item);
+                        break
+                    default:
+                        console.log('Default Case In Week Component');
+                        break;
+                }
             }
         })
 
@@ -136,6 +150,11 @@ class Week extends Component {
                                     }
                                 })
                             }
+                            {
+                                clockings.monday.length % 2 === 0 ?
+                                this.calcTotalForDay(clockings.monday) :
+                                clockings.monday.pop() && this.calcTotalForDay(clockings.monday)
+                            }
                         </div>
                         <div id="Tuesday" className="day col-sm">
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Tuesday | {this.getOrdinal(DayJS().startOf('isoWeek').add(1, 'day').format('D'))}</h6>
@@ -178,7 +197,7 @@ class Week extends Component {
                         <div id="Thursday" className="day col-sm">
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Thursday | {this.getOrdinal(DayJS().startOf('isoWeek').add(3, 'day').format('D'))}</h6>
                             {
-                                clockings.thursday.map((item, i) => {
+                                clockings.thursday.reverse().map((item, i) => {
                                     var datetime = item.datetime;
                                     var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {

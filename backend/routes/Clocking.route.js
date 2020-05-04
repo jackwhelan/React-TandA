@@ -188,4 +188,59 @@ router.post('/out/:id', (req, res) => {
         });
 });
 
+// @route   POST /clocking/admin
+// @desc    Add administrative clock in/out at a specific time for a specific user
+router.post('/admin/add', (req, res) => {
+    newClocking = new Clocking({
+        status: req.body.status,
+        datetime: req.body.datetime
+    });
+
+    User.findOneAndUpdate(
+        { username: req.body.username },
+        { $push: { clocking: newClocking } },
+        { useFindAndModify: false }
+    )
+        .then(user => {
+            if (user) {
+                res.json({
+                    success: "Clocking added successfully."
+                });
+            }
+            else {
+                res.json({
+                    error: "Attempting to add clock for a non-existant user"
+                });
+            }
+        })
+        .catch(err => {
+            res.json({ error: err });
+        });
+});
+
+// @route   POST /clocking/admin/remove
+// @desc    Remove administrative clock in/out for a specific user
+router.post('/admin/remove', (req, res) => {
+    User.findOneAndUpdate(
+        { username: req.body.username },
+        { $pull: { clocking: { "_id": mongoose.Types.ObjectId(req.body.clockingId) } } },
+        { useFindAndModify: false }
+    )
+        .then(user => {
+            if (user) {
+                res.json({
+                    success: "Clocking removed successfully."
+                });
+            }
+            else {
+                res.json({
+                    error: "Attempting to remove clock for a non-existant user"
+                });
+            }
+        })
+        .catch(err => {
+            res.json({ error: err });
+        });
+});
+
 module.exports = router;
