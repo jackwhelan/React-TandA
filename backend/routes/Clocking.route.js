@@ -6,6 +6,28 @@ const mongoose = require('mongoose');
 const Clocking = require('../models/Clocking.model');
 const {User} = require('../models/User.model');
 
+// @route   GET /clocking
+// @desc    Get All Users clockings
+router.get('/', async (req, res) => {
+    const showAmt = parseInt(req.query.showAmt);
+    const username = req.query.username;
+
+    User.findOne({username: username})
+        .then(user => {
+            res.json({
+                data: user.clocking.slice(0, showAmt)
+            })
+        })
+        .catch(err => {
+            res.json({
+                status: "error",
+                header: "Error",
+                message: "The users clockins could not be loaded from the database.",
+                error: err
+            });
+        });
+});
+
 // @route   GET /clocking/status/:id
 // @desc    Get whether a user is clocked in or out by ID
 router.get('/status/:id', (req, res) => {
