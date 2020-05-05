@@ -14,6 +14,13 @@ import ScheduleView from './views/pages/schedule.view';
 import NewsView from './views/pages/news.view';
 import QRView from './views/pages/qr.view';
 import PayPortalView from './views/pages/payportal.view';
+
+import AddManualClockingView from './views/admin/manClocking.view';
+import EventSchedulerView from './views/admin/eventScheduler.view';
+import NewsAuthorView from './views/admin/newsAuthor.view';
+import PayslipCreatorView from './views/admin/payslipCreator.view';
+import UserManagementView from './views/admin/userManagement.view';
+
 import GoodbyeView from './views/info/goodbye.view';
 import NotFoundView from './views/info/404.view';
 
@@ -33,6 +40,11 @@ function App() {
           <Route path="/News" component={NewsView} />
           <Route path="/QRCode" component={QRView} />
           <Route path="/PayPortal" component={PayPortalView} />
+          <Route path="/ClockAdminAdd" component={AddManualClockingView} />
+          <Route path="/UserAdmin" component={UserManagementView} />
+          <Route path="/ScheduleAdmin" component={EventSchedulerView} />
+          <Route path="/NewsAdmin" component={NewsAuthorView} />
+          <Route path="/PayslipAdmin" component={PayslipCreatorView} />
           <Route component={NotFoundView} />
         </Switch>
       </Router>
