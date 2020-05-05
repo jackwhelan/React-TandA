@@ -7,20 +7,36 @@ process.env.SECRET_KEY = 'secret';
 
 // User Model
 const { User, RegistrationValidation, UpdateValidation } = require('../models/User.model');
+const Clocking = require('../models/Clocking.model');
 
 // @route   GET /users
 // @desc    Get All Users
-router.get('/', (req, res) => {
-    User.find()
-    .sort({date:-1})
-    .then(users => res.json(users));
+router.get('/', async (req, res) => {
+    const showAmt = parseInt(req.query.showAmt);
+    const search = req.query.search;
+
+    User.find({ $text: { $search: search } })
+        .limit(showAmt)
+        .then(users => {
+            res.json(users);
+        })
+        .catch(err => {
+            res.json({
+                status: "error",
+                header: "Error",
+                message: "The users could not be loaded from the database.",
+                error: err
+            });
+        });
 });
 
 // @route   DELETE /users/:id
 // @desc    Delete a User
 router.delete('/:id', (req, res) => {
     User.findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({ success: true })))
+    .then(item => item.remove().then(() => {
+        res.json({ status: "success", header: "Success", message: "User deleted successfully." })
+    }))
     .catch(err => res.status(404).json({ success: false }));
 });
 
@@ -36,47 +52,55 @@ router.get('/:id', (req, res) => {
 // @desc    Register a user
 router.post('/register', (req, res) => {
     const {error} = RegistrationValidation(req.body);
-    if(error) return res.status(400).json({
-        status: 'error',
-        type: error.details[0].path[0],
-        msg: error.details[0].message
-    });
-
-    const newUser = new User({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    });
-
-    User.findOne({ username: req.body.username }).then(usernameMatch => {
-        if (usernameMatch) {
-            return res.json({
-                status: 'error',
-                error: 'Username is already registered'
-            });
-        }
-    });
-
-    User.findOne({ email: req.body.email }).then(emailMatch => {
-        if (emailMatch) {
-            return res.json({
-                status: 'error',
-                error: 'Email is already registered'
-            });
-        }
-    });
-
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if(err) throw err;
-            newUser.password = hash;
-            newUser.save()
-            .then(post => res.json(post))
-            .catch(err => console.error(err));
+    if(error) {
+        return res.json({
+            status: 'error',
+            type: error.details[0].path[0],
+            msg: error.details[0].message
+        })
+    }
+    else
+    {
+        const newUser = new User({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
         });
-    });
+
+        User.findOne({ username: req.body.username }).then(usernameMatch => {
+            if (usernameMatch) {
+                return res.json({
+                    status: 'error',
+                    error: 'Username is already registered'
+                });
+            }
+            else
+            {
+                User.findOne({ email: req.body.email }).then(emailMatch => {
+                    if (emailMatch) {
+                        return res.json({
+                            status: 'error',
+                            error: 'Email is already registered'
+                        });
+                    }
+                    else
+                    {
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                if (err) throw err;
+                                newUser.password = hash;
+                                newUser.save()
+                                    .then(post => res.json(post))
+                                    .catch(err => console.error(err));
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    }
 });
 
 // @route   POST /users/login
@@ -133,63 +157,211 @@ router.post('/login', (req, res) => {
 
 // @route   PATCH /users/:id
 // @desc    Modifies a user
+// router.patch('/:id', (req, res) => {
+//     var UID = req.params.id;
+
+//     var conditions = {
+//         _id: UID
+//     }
+
+//     var update = {
+//         firstname: req.body.firstname,
+//         lastname: req.body.lastname,
+//         username: req.body.username,
+//         email: req.body.email
+//     }
+
+//     const { error } = UpdateValidation(update);
+//     if (error) return res.status(400).json({
+//         status: 'error',
+//         header: error.details[0].path[0],
+//         message: error.details[0].message,
+//     });
+
+//     User.findOne({ username: req.body.username }).then(usernameMatch => {
+//         if (usernameMatch && usernameMatch._id != UID) {
+//             return res.json({
+//                 status: "error",
+//                 header: "Error",
+//                 message: "This username is already registered."
+//             });
+//         }
+//     });
+
+//     User.findOne({ email: req.body.email }).then(emailMatch => {
+//         if (emailMatch && emailMatch._id != UID) {
+//             return res.json({
+//                 status: "error",
+//                 header: "Error",
+//                 message: "This email address is already registered."
+//             });
+//         }
+//     });
+
+//     User.findOneAndUpdate(
+//         conditions,
+//         update,
+//         { useFindAndModify: false }
+//     )
+//         .then(() => {
+//                 res.json({
+//                     status: "success",
+//                     header: "Success",
+//                     message: "The user details you submitted are now stored and up to date.",
+//                 });
+//             }
+//         )
+//         .catch(err => {
+//             res.json({ err });
+//         });
+// })
+
+
 router.patch('/:id', (req, res) => {
     var UID = req.params.id;
 
-    var conditions = {
-        _id: UID
-    }
+    User.findById(UID)
+        .then(user => {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
+                var update = {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    username: req.body.username
+                }
 
-    var update = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        username: req.body.username,
-        email: req.body.email
-    }
+                const { error } = UpdateValidation(update);
+                if (error) {
+                    return res.json({
+                        status: 'error',
+                        header: error.details[0].path[0],
+                        message: error.details[0].message,
+                    })
+                }
+                else
+                {
+                    User.findOne({ email: req.body.email }).then(emailMatch => {
+                        console.log(emailMatch)
+                        if (emailMatch && emailMatch._id != UID) {
+                            return res.json({
+                                status: "error",
+                                header: "Error",
+                                message: "This email address is already registered."
+                            });
+                        }
+                        else {
+                            User.findOne({ username: req.body.username }).then(usernameMatch => {
+                                if (usernameMatch && usernameMatch._id != UID) {
+                                    return res.json({
+                                        status: "error",
+                                        header: "Error",
+                                        message: "This email address is already registered."
+                                    });
+                                }
+                                else {
+                                    User.findOneAndUpdate(
+                                        { _id: UID },
+                                        update,
+                                        { useFindAndModify: false }
+                                    )
+                                        .then(user => {
+                                            const payload = {
+                                                id: user._id,
+                                                firstname: req.body.firstname,
+                                                lastname: req.body.lastname,
+                                                username: req.body.username,
+                                                email: req.body.email,
+                                                created: user.created
+                                            }
 
-    const { error } = UpdateValidation(update);
-    if (error) return res.status(400).json({
-        status: 'error',
-        header: error.details[0].path[0],
-        message: error.details[0].message,
-    });
+                                            let token = jwt.sign(payload, process.env.SECRET_KEY);
 
-    User.findOne({ username: req.body.username }).then(usernameMatch => {
-        if (usernameMatch && usernameMatch._id != UID) {
-            return res.json({
-                status: "error",
-                header: "Error",
-                message: "This username is already registered."
-            });
-        }
-    });
+                                            return res.json({
+                                                status: "success",
+                                                header: "Success",
+                                                message: "The user details you submitted are now stored and up to date.",
+                                                token: token
+                                            });
+                                        })
+                                        .catch(err => {
+                                            return res.json({
+                                                err
+                                            });
+                                        });
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+            else {
+                return res.json({
+                    status: "error",
+                    header: "Error",
+                    message: "The password you entered is incorrect."
+                });
+            }
+        })
+        .catch(err => console.log(err))
+})
 
-    User.findOne({ email: req.body.email }).then(emailMatch => {
-        if (emailMatch && emailMatch._id != UID) {
-            return res.json({
-                status: "error",
-                header: "Error",
-                message: "This email address is already registered."
-            });
-        }
+// @route   POST /clocking/admin
+// @desc    Add administrative clock in/out at a specific time for a specific user
+router.post('/admin/add', (req, res) => {
+    newClocking = new Clocking({
+        status: req.body.status,
+        datetime: req.body.datetime
     });
 
     User.findOneAndUpdate(
-        conditions,
-        update,
+        { username: req.body.username },
+        { $push: { clocking: newClocking } },
         { useFindAndModify: false }
     )
-        .then(() => {
+        .then(user => {
+            if (user) {
                 res.json({
                     status: "success",
                     header: "Success",
-                    message: "The user details you submitted are now stored and up to date.",
+                    message: "Clocking added successfully"
                 });
             }
-        )
+            else {
+                res.json({
+                    status: "error",
+                    header: "Error",
+                    message: "This user doesn't exist"
+                });
+            }
+        })
         .catch(err => {
-            res.json({ err });
+            res.json({ error: err });
         });
-})
+});
+
+// @route   POST /clocking/admin/remove
+// @desc    Remove administrative clock in/out for a specific user
+router.post('/admin/remove', (req, res) => {
+    User.findOneAndUpdate(
+        { username: req.body.username },
+        { $pull: { clocking: { "_id": mongoose.Types.ObjectId(req.body.clockingId) } } },
+        { useFindAndModify: false }
+    )
+        .then(user => {
+            if (user) {
+                res.json({
+                    success: "Clocking removed successfully."
+                });
+            }
+            else {
+                res.json({
+                    error: "Attempting to remove clock for a non-existant user"
+                });
+            }
+        })
+        .catch(err => {
+            res.json({ error: err });
+        });
+});
 
 module.exports = router;
