@@ -46,7 +46,8 @@ router.post('/add', (req, res) => {
         .then(event => {
             if (event) {
                 res.json({
-                    status: "Success",
+                    status: "success",
+                    header: "Success",
                     message: "The Event has been Scheduled!",
                     event: event
                 })
@@ -54,7 +55,8 @@ router.post('/add', (req, res) => {
             else
             {
                 res.json({
-                    status: "Error",
+                    status: "error",
+                    header: "Error",
                     message: "The Event could not be Scheduled!",
                 })
             }

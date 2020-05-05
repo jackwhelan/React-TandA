@@ -30,6 +30,14 @@ router.get('/', async (req, res) => {
         });
 });
 
+router.get('/uid/:username', (req, res) => {
+    User.findOne({username: req.params.username})
+    .then(user => {
+        res.send(user._id)
+    })
+    .catch(() => res.send('User Doesnt Exist'))
+})
+
 // @route   DELETE /users/:id
 // @desc    Delete a User
 router.delete('/:id', (req, res) => {

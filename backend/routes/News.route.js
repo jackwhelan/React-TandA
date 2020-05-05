@@ -44,7 +44,8 @@ router.post('/add', (req, res) => {
         .then(post => {
             if (post) {
                 res.json({
-                    status: "Success",
+                    status: "success",
+                    header: "Success",
                     message: "News item added",
                     newsItem: post
                 })
@@ -52,7 +53,8 @@ router.post('/add', (req, res) => {
             else
             {
                 res.json({
-                    status: "Error",
+                    status: "error",
+                    header: "Error",
                     message: "News item could not be added",
                 })
             }
