@@ -30,7 +30,16 @@ class ClockStatusBox extends Component {
 
                         clockInButton.classList.remove("disabled");
                         clockOutButton.classList.add("disabled");
-                    } else {
+                    } else if (!this.state.clockStatus.includes("in")) {
+                        this.setState({
+                            clockStatus: 'Clocked out',
+                            textColour: '#d9534f'
+                        })
+
+                        clockInButton.classList.remove("disabled");
+                        clockOutButton.classList.add("disabled");
+                    }
+                    else {
                         this.setState({
                             textColour: '#5cb85c'
                         })
