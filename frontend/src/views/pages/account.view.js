@@ -9,8 +9,15 @@ class AccountView extends Component {
             <div>
                 <Navbar />
                 <div className="container bg-light p-5">
-                    <h4>Account</h4><hr className="bg-black" />
-                    <ModifyUserForm />
+                    <div className="container">
+                        <div className="card bg-light pb-4 mt-3">
+                            <article className="card-body mx-auto" style={{ maxWidth: "400px" }}>
+                                <h4 className="card-title mt-3 text-center">My Account</h4>
+                                <p className="text-center">Modify your account details below</p>
+                                <ModifyUserForm />
+                            </article>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
