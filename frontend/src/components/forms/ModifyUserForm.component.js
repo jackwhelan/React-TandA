@@ -2,51 +2,97 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Info from '../notifiers/Info.component';
+import FormInput from './FormInput.component';
+import jwt from 'jsonwebtoken';
 
 class Form extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            firstname: localStorage.getItem('USER_FIRSTNAME'),
-            lastname: localStorage.getItem('USER_LASTNAME'),
-            username: localStorage.getItem('USER_USERNAME'),
-            email: localStorage.getItem('USER_EMAIL')
+            user: {
+                firstname: localStorage.getItem('USER_FIRSTNAME'),
+                lastname: localStorage.getItem('USER_LASTNAME'),
+                username: localStorage.getItem('USER_USERNAME'),
+                email: localStorage.getItem('USER_EMAIL'),
+                password: ''
+            }
         }
     }
 
-    handleFirstnameChange = (event) => {
-        this.setState({
-            firstname: event.target.value
-        })
+    handleFirstNameChange = (event) => {
+        let newFirstName = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.firstname = newFirstName;
+            return { user };
+        });
     }
 
-    handleLastnameChange = (event) => {
-        this.setState({
-            lastname: event.target.value
-        })
+    handleLastNameChange = (event) => {
+        let newLastName = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.lastname = newLastName;
+            return { user };
+        });
     }
 
-    handleUsernameChange = (event) => {
-        this.setState({
-            username: event.target.value
-        })
+    handleUserNameChange = (event) => {
+        let newUserName = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.username = newUserName;
+            return { user };
+        });
     }
 
     handleEmailChange = (event) => {
-        this.setState({
-            email: event.target.value
-        })
+        let newEmail = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.email = newEmail;
+            return { user };
+        });
+    }
+
+    handlePasswordChange = (event) => {
+        let newPassword = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.password = newPassword;
+            return { user };
+        });
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.patch("/users/" + localStorage.getItem('USER_ID'), this.state)
+        this.setState({
+            response: undefined
+        })
+
+        axios.patch("/users/" + localStorage.getItem('USER_ID'), this.state.user)
             .then(res => {
                 this.setState({
                     response: res.data
                 })
+            })
+            .then(() => {
+                if (this.state.response.token) {
+                    localStorage.setItem('USER_ID', jwt.verify(this.state.response.token, 'secret').id);
+                    localStorage.setItem('USER_FIRSTNAME', jwt.verify(this.state.response.token, 'secret').firstname);
+                    localStorage.setItem('USER_LASTNAME', jwt.verify(this.state.response.token, 'secret').lastname);
+                    localStorage.setItem('USER_USERNAME', jwt.verify(this.state.response.token, 'secret').username);
+                    localStorage.setItem('USER_EMAIL', jwt.verify(this.state.response.token, 'secret').email);
+                    localStorage.setItem('USER_CREATED', jwt.verify(this.state.response.token, 'secret').created);
+                    localStorage.setItem('USER_TOKEN', this.state.response.token);
+                }
             })
             .catch(err => console.log(err));
     }
@@ -79,57 +125,61 @@ class Form extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 {info}
-                <div className="mt-4">
-                    <label>First Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={this.state.firstname}
-                        onChange={this.handleFirstnameChange}
-                        minLength="2"
-                        maxLength="30"
-                        required
-                    />
-                </div>
+                <FormInput
+                    icon="fa fa-user"
+                    type="text"
+                    value={this.state.user.firstname}
+                    onChange={this.handleFirstNameChange}
+                    min="2"
+                    max="30"
+                    label="First Name"
+                    required={true}
+                />
 
-                <div className="mt-4">
-                    <label>Last Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={this.state.lastname}
-                        onChange={this.handleLastnameChange}
-                        minLength="2"
-                        maxLength="30"
-                        required
-                    />
-                </div>
+                <FormInput
+                    icon="fa fa-user"
+                    type="text"
+                    value={this.state.user.lastname}
+                    onChange={this.handleLastNameChange}
+                    min="2"
+                    max="30"
+                    label="Last Name"
+                    required={true}
+                />
 
-                <div className="mt-4">
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={this.state.username}
-                        onChange={this.handleUsernameChange}
-                        minLength="3"
-                        maxLength="30"
-                        required
-                    />
-                </div>
+                <FormInput
+                    icon="fa fa-user-circle"
+                    type="text"
+                    value={this.state.user.username}
+                    onChange={this.handleUserNameChange}
+                    label="Username"
+                    required={true}
+                />
 
-                <div className="mt-4 mb-5">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        value={this.state.email}
-                        onChange={this.handleEmailChange}
-                        required
-                    />
-                </div>
+                <FormInput
+                    icon="fa fa-envelope"
+                    type="email"
+                    value={this.state.user.email}
+                    onChange={this.handleEmailChange}
+                    label="Email Address"
+                    required={true}
+                />
 
-                <button type="submit" className="btn btn-black">Update Account Details</button>
+                <hr></hr>
+                <p className="text-center">Enter password to confirm changes</p>
+
+                <FormInput
+                    icon="fa fa-lock"
+                    type="password"
+                    value={this.state.user.password}
+                    onChange={this.handlePasswordChange}
+                    min="6"
+                    max="100"
+                    label="Password"
+                    required={true}
+                />
+
+                <button type="submit" className="btn btn-primary btn-block">Submit Changes</button>
             </form>
         )
     }

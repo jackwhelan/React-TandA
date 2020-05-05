@@ -2,48 +2,71 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Alert from '../notifiers/Alert.component';
+import FormInput from './FormInput.component';
 
 class Form extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            firstname: '',
-            lastname: '',
-            username: '',
-            email: '',
-            password: ''
+            user: {
+                firstname: '',
+                lastname: '',
+                username: '',
+                email: '',
+                password: ''
+            }
         }
     }
 
-    handleFirstnameChange = (event) => {
-        this.setState({
-            firstname: event.target.value
-        })
+    handleFirstNameChange = (event) => {
+        let newFirstName = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.firstname = newFirstName;
+            return { user };
+        });
     }
 
-    handleLastnameChange = (event) => {
-        this.setState({
-            lastname: event.target.value
-        })
+    handleLastNameChange = (event) => {
+        let newLastName = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.lastname = newLastName;
+            return { user };
+        });
     }
 
-    handleUsernameChange = (event) => {
-        this.setState({
-            username: event.target.value
-        })
-    }
+    handleUserNameChange = (event) => {
+        let newUserName = event.target.value;
 
-    handlePasswordChange = (event) => {
-        this.setState({
-            password: event.target.value
-        })
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.username = newUserName;
+            return { user };
+        });
     }
 
     handleEmailChange = (event) => {
-        this.setState({
-            email: event.target.value
-        })
+        let newEmail = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.email = newEmail;
+            return { user };
+        });
+    }
+
+    handlePasswordChange = (event) => {
+        let newPassword = event.target.value;
+
+        this.setState(previousState => {
+            let user = { ...previousState.user }
+            user.password = newPassword;
+            return { user };
+        });
     }
 
     handleSubmit = (event) => {
@@ -53,7 +76,7 @@ class Form extends Component {
             error: undefined,
         })
 
-        axios.post("/users/register", this.state)
+        axios.post("/users/register", this.state.user)
             .then(res => {
                 this.setState({
                     response: res.data
@@ -103,70 +126,72 @@ render() {
     return (
         <form onSubmit={this.handleSubmit}>
             <div className="mt-4">
-                <label>First Name</label>
-                <input
+                <FormInput
+                    icon="fa fa-user"
                     type="text"
-                    className="form-control"
-                    value={this.state.firstname}
-                    onChange={this.handleFirstnameChange}
-                    minLength="2"
-                    maxLength="30"
-                    required
+                    value={this.state.user.firstname}
+                    onChange={this.handleFirstNameChange}
+                    min="2"
+                    max="30"
+                    label="First Name"
+                    required={true}
+                />
+            </div>
+            
+            <div className="mt-4">
+                <FormInput
+                    icon="fa fa-user"
+                    type="text"
+                    value={this.state.user.lastname}
+                    onChange={this.handleLastNameChange}
+                    min="2"
+                    max="30"
+                    label="Last Name"
+                    required={true}
                 />
             </div>
 
             <div className="mt-4">
-                <label>Last Name</label>
-                <input
+                <FormInput
+                    icon="fa fa-user-circle"
                     type="text"
-                    className="form-control"
-                    value={this.state.lastname}
-                    onChange={this.handleLastnameChange}
-                    minLength="2"
-                    maxLength="30"
-                    required
+                    value={this.state.user.username}
+                    onChange={this.handleUserNameChange}
+                    min="3"
+                    max="30"
+                    label="Username"
+                    required={true}
                 />
             </div>
-
+            
             <div className="mt-4">
-                <label>Username</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.username}
-                    onChange={this.handleUsernameChange}
-                    minLength="3"
-                    maxLength="30"
-                    required
-                />
-            </div>
-
-            <div className="mt-4">
-                <label>Password</label>
-                <input
-                    type="password"
-                    className="form-control"
-                    value={this.state.password}
-                    onChange={this.handlePasswordChange}
-                    minLength="6"
-                    maxLength="100"
-                    required
-                />
-            </div>
-
-            <div className="mt-4 mb-5">
-                <label>Email</label>
-                <input
+                <FormInput
+                    icon="fa fa-envelope"
                     type="email"
-                    className="form-control"
-                    value={this.state.email}
+                    value={this.state.user.email}
                     onChange={this.handleEmailChange}
-                    required
+                    label="Email Address"
+                    required={true}
+                />
+            </div>
+
+            <div className="mt-4">
+                <FormInput
+                    icon="fa fa-lock"
+                    type="password"
+                    value={this.state.user.password}
+                    onChange={this.handlePasswordChange}
+                    min="6"
+                    max="100"
+                    label="Password"
+                    required={true}
                 />
                 {alertIfError}
             </div>
-
-            <button type="submit" className="btn btn-black">Submit</button>
+            
+            <div className="mt-4">
+                <button type="submit" className="btn btn-black">Submit</button>
+            </div>
         </form>
         )
     }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import Info from '../notifiers/Info.component';
+import FormInput from './FormInput.component';
 
 class Form extends Component {
     constructor(props) {
@@ -93,24 +94,26 @@ class Form extends Component {
             <form onSubmit={this.handleSubmit}>
                 {info}
                 <div className="mt-4">
-                    <label>Username</label>
-                    <input
+                    <FormInput
+                        icon="fa fa-user"
                         type="text"
-                        className="form-control"
                         value={this.state.username}
                         onChange={this.handleUsernameChange}
-                        required
+                        label="Username"
+                        required={true}
                     />
                 </div>
 
                 <div className="mt-4 mb-5">
-                    <label>Password</label>
-                    <input
+                    <FormInput
+                        icon="fa fa-lock"
                         type="password"
-                        className="form-control"
                         value={this.state.password}
                         onChange={this.handlePasswordChange}
-                        required
+                        min="6"
+                        max="100"
+                        label="Password"
+                        required={true}
                     />
                 </div>
 
