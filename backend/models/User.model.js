@@ -41,6 +41,13 @@ const UserSchema = new Schema({
     }
 });
 
+UserSchema.index({
+    firstname: 'text',
+    lastname: 'text',
+    email: 'text',
+    username: 'text'
+});
+
 const User = new mongoose.model('User', UserSchema);
 
 function registrationValidation(user) {
