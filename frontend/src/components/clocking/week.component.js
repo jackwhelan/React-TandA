@@ -13,7 +13,6 @@ class Week extends Component {
     }
 
     calcTotalForDay = (clockings) => {
-        console.log(clockings)
         var totalWorked = 0;
 
             if(clockings.length > 0) {
@@ -133,7 +132,7 @@ class Week extends Component {
                         <div id="Monday" className="day col-sm">
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Monday | { this.getOrdinal(DayJS().startOf('isoWeek').format('D')) }</h6>
                             {
-                                clockings.monday.map((item, i) => {
+                                clockings.monday.reverse().map((item, i) => {
                                     var datetime = item.datetime;
                                     var dtime = DayJS(datetime).format('HH:mm');
                                     var isoweek = DayJS().isoWeek();
@@ -153,13 +152,13 @@ class Week extends Component {
                             {
                                 clockings.monday.length % 2 === 0 ?
                                 this.calcTotalForDay(clockings.monday) :
-                                clockings.monday.pop() && this.calcTotalForDay(clockings.monday)
+                                <div>Clock out to calculate!</div>
                             }
                         </div>
                         <div id="Tuesday" className="day col-sm">
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Tuesday | {this.getOrdinal(DayJS().startOf('isoWeek').add(1, 'day').format('D'))}</h6>
                             {
-                                clockings.tuesday.map((item, i) => {
+                                clockings.tuesday.reverse().map((item, i) => {
                                     var datetime = item.datetime;
                                     var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
@@ -174,11 +173,16 @@ class Week extends Component {
                                     }
                                 })
                             }
+                            {
+                                clockings.tuesday.length % 2 === 0 ?
+                                    this.calcTotalForDay(clockings.tuesday) :
+                                    <div>Clock out to calculate!</div>
+                            }
                         </div>
                         <div id="Wednesday" className="day col-sm">
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Wednesday | {this.getOrdinal(DayJS().startOf('isoWeek').add(2, 'day').format('D'))}</h6>
                             {
-                                clockings.wednesday.map((item, i) => {
+                                clockings.wednesday.reverse().map((item, i) => {
                                     var datetime = item.datetime;
                                     var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
@@ -192,6 +196,11 @@ class Week extends Component {
                                         )
                                     }
                                 })
+                            }
+                            {
+                                clockings.wednesday.length % 2 === 0 ?
+                                    this.calcTotalForDay(clockings.wednesday) :
+                                    <div>Clock out to calculate!</div>
                             }
                         </div>
                         <div id="Thursday" className="day col-sm">
@@ -212,12 +221,16 @@ class Week extends Component {
                                     }
                                 })
                             }
-                            {clockings.thursday && this.calcTotalForDay(clockings.thursday)}
+                            {
+                                clockings.thursday.length % 2 === 0 ?
+                                    this.calcTotalForDay(clockings.thursday) :
+                                    <div>Clock out to calculate!</div>
+                            }
                         </div>
                         <div id="Friday" className="day col-sm">
                             <h6 className="text-center mt-2 mb-4 font-weight-bold border border-dark p-2">Friday | {this.getOrdinal(DayJS().startOf('isoWeek').add(4, 'day').format('D'))}</h6>
                             {
-                                clockings.friday.map((item, i) => {
+                                clockings.friday.reverse().map((item, i) => {
                                     var datetime = item.datetime;
                                     var dtime = DayJS(datetime).format('HH:mm');
                                     if (DayJS(datetime).isAfter(DayJS().startOf('isoWeek'))) {
@@ -231,6 +244,11 @@ class Week extends Component {
                                         )
                                     }
                                 })
+                            }
+                            {
+                                clockings.friday.length % 2 === 0 ?
+                                    this.calcTotalForDay(clockings.friday) :
+                                    <div>Clock out to calculate!</div>
                             }
                         </div>
                     </div>
